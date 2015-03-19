@@ -1,10 +1,11 @@
 FORMAT: 1A
 
 # Virtual Pantry API
-This API details how the 
+These are the functions that I think we will need for the app. The JSON parts are leftover from when I was originally trying to create the API.
+I figured I'd leave them incase we need it later. These functions should help with starting the code and we can change it as needed. If anythings wrong
+or needs to be added, let me know.
 
-# Group Pantry
-Pantry related resources of the **Pantry API**
+# Pantry
 
 ## getPantycontents() [GET]
 This function will return the product ID and product name of each item in the users pantry.
@@ -139,9 +140,21 @@ doesn't need to work exactly like this, most likely a better method will be used
 This function will allow the user to edit a the information of a product currently in their pantry. The user will select which product they
 wish to edit and change whatever information they desire. When they are done this function will accept the new product and add the new information.
 
++ Response 201
 
 
+#Barcode Scanner
 
+## scanBarcode() [GET]
+This function will scan a product barcode. The user will take a picture of barcode then this function will use a bar code reader such as zbar
+or aspose to get the code. Then the function will use the addProductBarcode function to add the item to the pantry
+
++ Response 201
+
+#Recipes
+
+## findRecipes(searchCritera) [GET]
+This function will return a list of recipes. It will accept the search critera and then use the Yummly API to find the recipes. 
 
 
 
