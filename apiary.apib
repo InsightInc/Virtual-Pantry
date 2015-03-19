@@ -1,0 +1,167 @@
+FORMAT: 1A
+
+# Virtual Pantry API
+This API details how the 
+
+# Group Pantry
+Pantry related resources of the **Pantry API**
+
+## getPantycontents() [GET]
+This function will return the product ID and product name of each item in the users pantry.
++ Response 200 (application/json)
+
+        [{
+          "productId": 1, 
+          "productName": "Example1",
+        }, 
+        {
+          "productId": 2, 
+          "productName": "Example2",
+        }
+        {
+          "productId": 3, 
+          "productName": "Example3",
+        }]
+
+## addProductSearch("name") [POST]
+This function will add a product to the user's virtual pantry using the product's name. It accepts the name of the product that the user inputs and then uses 
+FoodEssentials API to find the product. If the product is found it will get the product's relevant information from
+the FoodEssentials database and add it to the user's pantry. If the product is not found, the user will be directed to 
+the manual entry form.
+
++ Request (application/json)
+
+        {
+          "productName": "Example4",
+        }
+
++ Response 201 (application/json)
+
+        { 
+          "productId": 4, 
+          "productName": "Example4",
+          "fat": 0,
+          "cholesterol": 0,
+          "sodium": 0,
+          "carbs": 0,
+          "protein": 0,
+          "servingSize": 0,
+          "price": 0.00,
+          "barcode": 0,
+          "calPerServing": 0,
+          "expiration": 0-00-00
+        }
+
+## addProductBarcode(barcodeExample) [POST]
+This function will add a product to the user's virtual pantry using the product's barcode. It accepts a barcode and then uses 
+FoodEssentials API to find the product. If the product is found it will get the product's relevant information from
+the FoodEssentials database and add it to the user's pantry. If the product is not found, the user will be directed to 
+the manual entry form.
+
++ Request (application/json)
+
+        {
+          "barcode": barcodeExample,
+        }
+
++ Response 201 (application/json)
+
+        { 
+          "productId": 4, 
+          "productName": "Example4",
+          "fat": 0,
+          "cholesterol": 0,
+          "sodium": 0,
+          "carbs": 0,
+          "protein": 0,
+          "servingSize": 0,
+          "price": 0.00,
+          "barcode": barcodeExample,
+          "calPerServing": 0,
+          "expiration": 0-00-00
+        }
+        
+
+## addProductManual(entryFormObj) [POST]
+This function will add a product to the user's virtual pantry using information entered by the user. It will accept an object that contains
+all the products information. Any information that the user left blank will be NULL and it will create it into a product object. 
+
++ Request (application/json)
+
+        {
+          "barcode": barcodeExample,
+        }
+
++ Response 201 (application/json)
+
+        { 
+          "productId": NULL, 
+          "productName": "Example5",
+          "fat": 0,
+          "cholesterol": 0,
+          "sodium": 0,
+          "carbs": 0,
+          "protein": 0,
+          "servingSize": 0,
+          "price": 0.00,
+          "barcode": NULL,
+          "calPerServing": 0,
+          "expiration": 0-00-00
+        }
+
+
+## getPantryItem()[GET]
+This function will return all the information of a product that is in the user's pantry. 
++ Response 200 (application/json)
+
+        {
+          "productId": 1, 
+          "productName": "Example",
+          "fat": 0,
+          "cholesterol": 0,
+          "sodium": 0,
+          "carbs": 0,
+          "protein": 0,
+          "servingSize": 0,
+          "price": 0.00,
+          "barcode": barcodeExample,
+          "calPerServing": 0,
+          "expiration": 0-00-00
+        }
+
+## removeProduct(id)[DELETE]
+This function will remove an object from the users pantry. It accepts a product id, finds the correct product and removes it. This function
+doesn't need to work exactly like this, most likely a better method will be used as the project progresses. 
+
++ Response 204
+
+## editProduct(productObj)[PUT]
+This function will allow the user to edit a the information of a product currently in their pantry. The user will select which product they
+wish to edit and change whatever information they desire. When they are done this function will accept the new product and add the new information.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
