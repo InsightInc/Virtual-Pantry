@@ -149,17 +149,35 @@ wish to edit and change whatever information they desire. When they are done thi
 This function will scan a product barcode. The user will take a picture of barcode then this function will use a bar code reader such as zbar
 or aspose to get the code. Then the function will use the addProductBarcode function to add the item to the pantry
 
-+ Response 201
++ Response 200
 
 #Recipes
 
 ## findRecipes(searchCritera) [GET]
-This function will return a list of recipes. It will accept the search critera and then use the Yummly API to find the recipes. 
+This function will return a list of recipes. It will accept the search critera and then use the Yummly API to find the recipes and return a list
+of the most relevant ones.
+
++ Response 200
+
+## getSearchFilters() [PUT]
+This function will return the users search critera. The user can enter a calorie limit, specific indgredients to use, use items on expire list,
+allergy restrictions, and dietary restrictions. 
+
++ Response 201
 
 
+#Soon to Expire
 
+## moveToExpire(productObj) [PUT]
+This fuction will move an item to expired list. It will accept a product obj, add it to the expire list, and remove it from pantry.
 
++ Response 201
 
+## removeFromExpire() [DELETE]
+This function will remove an item from the expired list. A user can select to remove the item by using this function or it will automatically
+remove it when it passes the expiration date.
+
++ Response 204
 
 
 
