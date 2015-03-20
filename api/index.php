@@ -3,9 +3,13 @@ require 'vendor/autoload.php';
 
 $app = new \Slim\Slim();
 
+$database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
+if ($database->connect_errno)
+    die("Connection failed: " . $database->connect_error);
+
 
 #get product by searching by name
-$app->get('/getProduct::name', function($name) {
+$app->get('/getProduct', function($name) {
 
 	$name = $_GET['name'];
 	#Connect to foodessentials api ------------------------------------------------
@@ -40,6 +44,13 @@ $app->get('/getProduct::name', function($name) {
     echo $product;
 
 });
+
+
+$app->get('/getRecipes', function($query)
+{
+	$query = $_GET['query'];
+	
+}
 
 $app->run();
 
