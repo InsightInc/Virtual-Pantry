@@ -1,0 +1,44 @@
+{
+    "session_id": ,
+    "nutrients": [
+        {
+            "name": "Calories",
+            "value": "true"
+        },
+        {
+            "name": "Cholesterol",
+            "value": "true"
+        },
+        {
+            "name": "Protein",
+            "value": "true"
+        },
+        {
+            "name": "Sodium",
+            "value": "true"
+        },
+        {
+            "name": "Sugars",
+            "value": "false"
+        },
+        {
+            "name": "Total Carbohydrate",
+            "value": "true"
+        },
+        {
+            "name": "Total Fat",
+            "value": "true"
+        },
+    ],
+    "allergens": [
+
+    ],
+    "additives": [
+
+    ],
+    "myingredients": [
+
+    ],
+    "mysort": [
+    ]
+}
