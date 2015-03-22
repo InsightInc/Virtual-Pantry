@@ -1,6 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 $app = new \Slim\Slim();
+
  $database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
  if ($database->connect_errno)
      die("Connection failed: " . $database->connect_error);
@@ -43,13 +44,13 @@ $app->get('/addProduct', function($name, $id) {
 
     $jsonProduct = array();
     $jsonProduct['pid'] = $name;
-    $jsonProduct['fat'] = $product->product->nutrients[5]->nutrient_fe_level;
-	$jsonProduct['chol'] = $product->product->nutrients[1]->nutrient_fe_level;
-	$jsonProduct['sodium'] = $product->product->nutrients[3]->nutrient_fe_level;
-	$jsonProduct['carb'] = $product->product->nutrients[4]->nutrient_fe_level;
-	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_fe_level;
+    $jsonProduct['fat'] = $product->product->nutrients[5]->nutrient_value;
+	$jsonProduct['chol'] = $product->product->nutrients[1]->nutrient_value;
+	$jsonProduct['sodium'] = $product->product->nutrients[3]->nutrient_value;
+	$jsonProduct['carb'] = $product->product->nutrients[4]->nutrient_value;
+	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_value;
 	$jsonProduct['barcode'] = $upc
-	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_fe_level;
+	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
 	$response = $database->query('INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ('.$id.', '.$jsonProduct['pid'].', '.$upc.', '.$jsonProduct['name'].')');
@@ -63,7 +64,7 @@ $app->get('/removeProduct', function($name, $id)
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
 
-	$response = $database->query(DELETE FROM PantryList WHERE pid = $name AND uid = $id);
+	$response = $database->query('DELETE FROM PantryList WHERE pid = '.$name.' AND uid = '.$id);
 	echo = $response;
 
 
@@ -74,7 +75,7 @@ $app->get('/getPantryList', function($id)
 	global $database;
 	$id = $_GET['uid'];
 
-	$response = $database->query(SELECT pname FROM PantryList WHERE uid = $id);
+	$response = $database->query('SELECT pname FROM PantryList WHERE uid = '.$id);
 	$response = $response->fetch_assoc();
 	$response = json_encode($response);
 	echo = $response;
@@ -108,11 +109,11 @@ $app->get('/', function()
 	$url_5 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_5.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
 	$url_5a = json_decode($url_5);
 
-	$url_a = $url_1a->source->sourceRecipeUrl;
-	$url_b = $url_2a->source->sourceRecipeUrl;
-	$url_c = $url_3a->source->sourceRecipeUrl;
-	$url_d = $url_4a->source->sourceRecipeUrl;
-	$url_e = $url_5a->source->sourceRecipeUrl;
+	$url_a = preg_replace('/(\/+)/','/',$url_1a->source->sourceRecipeUrl);
+	$url_b = preg_replace('/(\/+)/','/',$url_2a->source->sourceRecipeUrl);
+	$url_c = preg_replace('/(\/+)/','/',$url_3a->source->sourceRecipeUrl);
+	$url_d = preg_replace('/(\/+)/','/',$url_4a->source->sourceRecipeUrl);
+	$url_e = preg_replace('/(\/+)/','/',$url_5a->source->sourceRecipeUrl);
 
 	$recipe_array  = array();
 	$recipe_array[$recipe_list->matches[0]->recipeName] = $url_a;
@@ -127,3 +128,4 @@ $app->get('/', function()
 });
 $app->run();
 ?>
+
