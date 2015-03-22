@@ -82,11 +82,11 @@ $app->get('/', function()
 	$url_5 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_5.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
 	$url_5a = json_decode($url_5);
 
-	$url_a = $url_1a->source->sourceRecipeUrl;
-	$url_b = $url_2a->source->sourceRecipeUrl;
-	$url_c = $url_3a->source->sourceRecipeUrl;
-	$url_d = $url_4a->source->sourceRecipeUrl;
-	$url_e = $url_5a->source->sourceRecipeUrl;
+	$url_a = preg_replace('/(\/+)/','/',$url_1a->source->sourceRecipeUrl);
+	$url_b = preg_replace('/(\/+)/','/',$url_2a->source->sourceRecipeUrl);
+	$url_c = preg_replace('/(\/+)/','/',$url_3a->source->sourceRecipeUrl);
+	$url_d = preg_replace('/(\/+)/','/',$url_4a->source->sourceRecipeUrl);
+	$url_e = preg_replace('/(\/+)/','/',$url_5a->source->sourceRecipeUrl);
 
 	$recipe_array  = array();
 	$recipe_array[$recipe_list->matches[0]->recipeName] = $url_a;
