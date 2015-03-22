@@ -37,7 +37,7 @@ $app->get('/addProduct', function($name, $id) {
     $productList = json_decode($pjson);
     $upc = $productList->productsArray[0]->upc;
     $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
-<<<<<<< HEAD
+
     $product = json_decode($product);
 
     $jsonProduct = array();
