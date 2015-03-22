@@ -1,11 +1,11 @@
 <?php
 require 'vendor/autoload.php';
 $app = new \Slim\Slim();
-// $database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
-// if ($database->connect_errno)
-//     die("Connection failed: " . $database->connect_error);
-#get product by searching by name
+ $database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
+ if ($database->connect_errno)
+     die("Connection failed: " . $database->connect_error);
 
+#get product by searching by name
 $app->get('/addProduct', function($name, $id) {
 
 	global $database;
