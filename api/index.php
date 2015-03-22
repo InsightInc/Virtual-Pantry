@@ -11,6 +11,7 @@ $app->get('/addProduct', function($name, $id) {
 	global $database;
 
 	$name = $_GET['name'];
+	$id = $_GET['uid'];
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
 	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
@@ -37,11 +38,11 @@ $app->get('/addProduct', function($name, $id) {
     $productList = json_decode($pjson);
     $upc = $productList->productsArray[0]->upc;
     $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
-<<<<<<< HEAD
+
     $product = json_decode($product);
 
     $jsonProduct = array();
-    $jsonProduct['pid'] = $upc;
+    $jsonProduct['pid'] = $name;
     $jsonProduct['fat'] = $product->nutrients[5]->nutrient_fe_level;
 	$jsonProduct['chol'] = $product->nutrients[1]->nutrient_fe_level;
 	$jsonProduct['sodium'] = $product->nutrients[3]->nutrient_fe_level;
@@ -51,10 +52,35 @@ $app->get('/addProduct', function($name, $id) {
 	$jsonProduct['cal'] = $product->nutrients[0]->nutrient_fe_level;
 	$jsonProduct['name'] = $product->product_name;
 
-	$response = $database->query(INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, $upc, $upc, $jsonProduct['name']));
+	$response = $database->query(INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, $jsonProduct['pid'], $upc, $jsonProduct['name']));
 
     echo $response;
 });
+
+$app->get('/removeProduct', function($name, $id) 
+{
+	global $database;
+	$name = $_GET['name'];
+	$id = $_GET['uid'];
+
+	$response = $database->query(DELETE FROM PantryList WHERE pid = $name AND uid = $id);
+	echo = $response;
+
+
+})
+
+$app->get('/getPantryList', function($id) 
+{
+	global $database;
+	$id = $_GET['uid'];
+
+	$response = $database->query(SELECT pname FROM PantryList WHERE uid = $id);
+	$response = $response->fetch_assoc();
+	$response = json_encode($response);
+	echo = $response;
+
+
+})
 
 
 #$app->get('/getRecipes', function($query)
