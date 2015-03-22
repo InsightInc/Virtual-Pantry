@@ -43,16 +43,16 @@ $app->get('/addProduct', function($name, $id) {
 
     $jsonProduct = array();
     $jsonProduct['pid'] = $name;
-    $jsonProduct['fat'] = $product->nutrients[5]->nutrient_fe_level;
-	$jsonProduct['chol'] = $product->nutrients[1]->nutrient_fe_level;
-	$jsonProduct['sodium'] = $product->nutrients[3]->nutrient_fe_level;
-	$jsonProduct['carb'] = $product->nutrients[4]->nutrient_fe_level;
-	$jsonProduct['protien'] = $product->nutrients[2]->nutrient_fe_level;
+    $jsonProduct['fat'] = $product->product->nutrients[5]->nutrient_fe_level;
+	$jsonProduct['chol'] = $product->product->nutrients[1]->nutrient_fe_level;
+	$jsonProduct['sodium'] = $product->product->nutrients[3]->nutrient_fe_level;
+	$jsonProduct['carb'] = $product->product->nutrients[4]->nutrient_fe_level;
+	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_fe_level;
 	$jsonProduct['barcode'] = $upc
-	$jsonProduct['cal'] = $product->nutrients[0]->nutrient_fe_level;
-	$jsonProduct['name'] = $product->product_name;
+	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_fe_level;
+	$jsonProduct['name'] = $product->product->product_name;
 
-	$response = $database->query(INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, $jsonProduct['pid'], $upc, $jsonProduct['name']));
+	$response = $database->query('INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ('.$id.', '.$jsonProduct['pid'].', '.$upc.', '.$jsonProduct['name'].')');
 
     echo $response;
 });
