@@ -1,7 +1,8 @@
 CREATE DATABASE IF NOT EXISTS VirtualPantryDB;
 USE 'VirtualPantryDB';
 
-
+CREATE TABLE IF NOT EXISTS User (uid int NOT NULL AUTO_INCREMENT, fname varchar(30), lname varchar(30), email varchar(45), 
+					password varchar(50), did int, srid int, PRIMARY KEY(uid));
 
 CREATE TABLE IF NOT EXISTS PantryList (pantryid int NOT NULL AUTO_INCREMENT, u_id int NOT NULL, pid int, barcode int, 
 						 price decimal(5,2), pname varchar(50), PRIMARY KEY(pantryid), FOREIGN KEY(u_id)
@@ -12,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Ingredient (pid int, fat int, chol int, sodium int, c
 						 pname varchar(50), PRIMARY KEY(pid));
 
 CREATE TABLE IF NOT EXISTS ExpiredList (pid int, barcode int, price decimal(5,2), PRIMARY KEY(pid));
+
 
 
 CREATE TABLE IF NOT EXISTS SavedRecipes (srid int, rid int, rname varchar(50), ptime time, ringid int,
