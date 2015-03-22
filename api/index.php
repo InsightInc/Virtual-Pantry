@@ -9,7 +9,9 @@ if ($database->connect_errno)
 
 
 #get product by searching by name
-$app->get('/getProduct', function($name) {
+$app->get('/addProduct', function($name, $id) {
+
+	global $database;
 
 	$name = $_GET['name'];
 	#Connect to foodessentials api ------------------------------------------------
@@ -41,7 +43,22 @@ $app->get('/getProduct', function($name) {
     $upc = $productList->productsArray[0]->upc;
 
     $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
-    echo $product;
+    $product = json_decode($product);
+
+    $jsonProduct = array();
+    $jsonProduct['pid'] = $upc;
+    $jsonProduct['fat'] = $product->nutrients[5]->nutrient_fe_level;
+	$jsonProduct['chol'] = $product->nutrients[1]->nutrient_fe_level;
+	$jsonProduct['sodium'] = $product->nutrients[3]->nutrient_fe_level;
+	$jsonProduct['carb'] = $product->nutrients[4]->nutrient_fe_level;
+	$jsonProduct['protien'] = $product->nutrients[2]->nutrient_fe_level;
+	$jsonProduct['barcode'] = $upc
+	$jsonProduct['cal'] = $product->nutrients[0]->nutrient_fe_level;
+	$jsonProduct['name'] = $product->product_name;
+
+	$response = $database->query(INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, $upc, $upc, $jsonProduct['name']));
+
+    echo $response;
 
 });
 
