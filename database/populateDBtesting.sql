@@ -3,11 +3,11 @@ USE 'VirtualPantryDB';
 -- CREATE TABLE User (uid int NOT NULL AUTO_INCREMENT, fname varchar(30), lname varchar(30), email varchar(45), 
 -- 					password varchar(50), did int, srid int, PRIMARY KEY(uid));
 
-INSERT into User values(1, "Ashley", "Isles", "ashley@smu.edu", "test1", 1, 1),
-(2, "Clay", "Lewis", "clay@smu.edu", "test1", 2, 2),
-(3, "Nick", "Antonelli", "nick@smu.edu", "test1", 3, 3),
-(4, "Alex", "Russell", "alex@smu.edu", "test1", 4, 4),
-(5, "Conner", "Knuston", "conner@smu.edu", "test1", 5, 5);
+INSERT into User(fname, lname, email, password) values("Ashley", "Isles", "ashley@smu.edu", "test1"),
+("Clay", "Lewis", "clay@smu.edu", "test1"),
+("Nick", "Antonelli", "nick@smu.edu", "test1"),
+("Alex", "Russell", "alex@smu.edu", "test1"),
+("Conner", "Knuston", "conner@smu.edu", "test1");
 
 -- CREATE TABLE PantryList (pantryid int NOT NULL AUTO_INCREMENT, u_id int NOT NULL, pid varchar(20), barcode int, 
 -- 						 price decimal(5,2), pname varchar(50), PRIMARY KEY(pantryid), FOREIGN KEY(u_id)
