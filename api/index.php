@@ -50,7 +50,7 @@ $app->get('/addProduct', function($name, $id) {
 	$jsonProduct['carb'] = $product->product->nutrients[4]->nutrient_value;
 	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_value;
 	$jsonProduct['barcode'] = $upc
-	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_fe_level;
+	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
 	$response = $database->query('INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ('.$id.', '.$jsonProduct['pid'].', '.$upc.', '.$jsonProduct['name'].')');
