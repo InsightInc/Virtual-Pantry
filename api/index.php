@@ -11,10 +11,18 @@ $app = new \Slim\Slim();
 #get product by searching by name
 $app->get('/addProduct', function() {
 
+	session_start();
 	global $database;
 
 	$name = $_GET['name'];
-	$id = $_GET['uid'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+   	}
+   	else
+   	{
+      		$id = 1;
+   	}
 
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
@@ -67,6 +75,7 @@ $app->get('/addProduct', function() {
 
 $app->get('/removeProduct', function() 
 {
+	session_start();
 	global $database;
 	$name = $_GET['name'];
 	if( isset( $_SESSION['uid'] ) )
@@ -89,9 +98,16 @@ $app->get('/removeProduct', function()
 
 $app->get('/getPantryList', function() 
 {
+	session_start();
 	global $database;
-	$id = $_SESSION['uid'];
-
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+   	}
+   	else
+   	{
+      		$id = 1;
+   	}
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_all();
@@ -146,7 +162,7 @@ $app->get('/getRecipes', function($query)
 	echo $recipe_array;
 });
 $app -> POST('/login', function() use ($database){
-
+	session_start();
 	$email = $_POST['email'];
     $password = $_POST['password'];
 	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
