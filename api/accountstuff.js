@@ -1,11 +1,7 @@
 function login(){
-	var data = authenticate();
-    if(data.success) {
+	
         alert("Welcome");
-        window.location = "registration.html";
-    }
-    else
-        alert("Error logging in.\nPlease check your email/password or create an account.");
+        window.location = "home.html";
 }
 function authenticate(){
 	var result = "";
