@@ -70,7 +70,7 @@ $app->get('/removeProduct', function()
 	$id = $_GET['uid'];
 
 
-	$response = $database->query("DELETE FROM PantryList WHERE pid = ".$name." AND uid = ".$id."");
+	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id.");
 
 	echo $response;
 
@@ -85,7 +85,7 @@ $app->get('/getPantryList', function()
 
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
-	$response = $response->fetch_array();
+	$response = $response->fetch_all();
 
 	$response = json_encode($response);
 	echo $response;
