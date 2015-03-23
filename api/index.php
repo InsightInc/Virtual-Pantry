@@ -136,7 +136,7 @@ $app->get('/getRecipes', function($query)
 
 	echo $recipe_array;
 });
-$app -> POST('/login', function() use ($database)){
+$app -> POST('/login', function() use ($database){
 	session_start();
 	$email = $_POST['email'];
     $password = $_POST['password'];
