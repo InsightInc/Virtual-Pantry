@@ -4,7 +4,7 @@ USE 'VirtualPantryDB';
 -- 					password varchar(50), did int, srid int, PRIMARY KEY(uid));
 
 INSERT into User(fname, lname, email, password) values("Ashley", "Isles", "ashley@smu.edu", "test1"),
-("Clay", "Lewis", "clay@smu.edu", "test1"),
+("test", "user", "test@smu.edu", "test1"),
 ("Nick", "Antonelli", "nick@smu.edu", "test1"),
 ("Alex", "Russell", "alex@smu.edu", "test1"),
 ("Conner", "Knuston", "conner@smu.edu", "test1");
