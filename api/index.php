@@ -116,7 +116,7 @@ $app->get('/getPantryList', function()
 });
 
 
-$app->get('/getRecipes', function($query)
+$app->get('/getRecipes', function()
 // $app->get('/', function()
 {
 	$query = $_GET['query'];
