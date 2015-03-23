@@ -1,5 +1,7 @@
 <?php
 require 'vendor/autoload.php';
+session_cache_limiter(false);
+session_start();
 $app = new \Slim\Slim();
 
  $database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
@@ -81,7 +83,7 @@ $app->get('/removeProduct', function()
 $app->get('/getPantryList', function() 
 {
 	global $database;
-	$id = $_GET['uid'];
+	$id = $_SESSION['uid'];
 
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
@@ -137,7 +139,7 @@ $app->get('/getRecipes', function($query)
 	echo $recipe_array;
 });
 $app -> POST('/login', function() use ($database){
-	session_start();
+
 	$email = $_POST['email'];
     $password = $_POST['password'];
 	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
