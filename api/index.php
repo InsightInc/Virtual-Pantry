@@ -54,7 +54,7 @@ $app->get('/addProduct', function($name, $id) {
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
-	$response = $database->query('INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ('.$id.', '.$jsonProduct['pid'].', '.$upc.', '.$jsonProduct['name'].');');
+	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES (".$id.", ".$jsonProduct['pid'].", ".$upc.", ".$jsonProduct['name'].")");
 
     echo $response;
 });
@@ -65,7 +65,7 @@ $app->get('/removeProduct', function($name, $id)
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
 
-	$response = $database->query('DELETE FROM PantryList WHERE pid = '.$name.' AND uid = '.$id.';');
+	$response = $database->query("DELETE FROM PantryList WHERE pid = ".$name." AND uid = ".$id."");
 	echo $response;
 
 
@@ -76,8 +76,7 @@ $app->get('/getPantryList', function($id)
 	global $database;
 	$id = $_GET['uid'];
 
-
-	$response = $database->query('SELECT pname FROM PantryList WHERE uid = '.$id.';');
+	$response = $database->query("SELECT pname FROM PantryList WHERE uid = ".$id."");
 	$response = $response->fetch_assoc();
 	$response = json_encode($response);
 	echo $response;
