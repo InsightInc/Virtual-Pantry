@@ -67,7 +67,7 @@ $app->get('/removeProduct', function()
 {
 	global $database;
 	$name = $_GET['name'];
-	$id = $_GET['uid'];
+	$id = $_SESSION['uid'];
 
 
 	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id.");
