@@ -13,6 +13,7 @@ $app->get('/addProduct', function() {
 
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
+
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
 	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
@@ -53,9 +54,11 @@ $app->get('/addProduct', function() {
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
+
 	$pname = $jsonProduct['name'];
 
 	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, '$name', $upc, '$pname')");
+
 
     echo $response;
 });
@@ -66,19 +69,24 @@ $app->get('/removeProduct', function()
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
 
-	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id");
+
+	$response = $database->query("DELETE FROM PantryList WHERE pid = ".$name." AND uid = ".$id."");
+
 	echo $response;
 
 
 });
+
 
 $app->get('/getPantryList', function() 
 {
 	global $database;
 	$id = $_GET['uid'];
 
+
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_array();
+
 	$response = json_encode($response);
 	echo $response;
 

@@ -13,7 +13,7 @@ INSERT into User(fname, lname, email, password) values("Ashley", "Isles", "ashle
 -- 						 price decimal(5,2), pname varchar(50), PRIMARY KEY(pantryid), FOREIGN KEY(u_id)
 -- 						 REFERENCES User(uid) ON DELETE CASCADE);
 
-INSERT into PantryList(u_id, pid, barcode, pname) values(1, "Bacon", "035826034724", "Bacon"),
+INSERT into PantryList(uid, pid, barcode, pname) values(1, "Bacon", "035826034724", "Bacon"),
 (1, "Oreo", "044000007492", "Oreo"),
 (1,"Apple", "033383027814","Apple"),
 (1, "Pomegranate", "073296153637", "Pomegranate");
