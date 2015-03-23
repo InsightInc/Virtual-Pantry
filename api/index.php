@@ -136,7 +136,7 @@ $app->get('/getRecipes', function($query)
 
 	echo $recipe_array;
 });
-$app -> POST('/login', function() use ($database)){
+$app -> POST('/login', function() use ($database){
 	session_start();
 	$email = $_POST['email'];
     $password = $_POST['password'];
@@ -152,7 +152,7 @@ $app -> POST('/login', function() use ($database)){
 	}
 	echo json_encode($response);
 });
-$app -> POST('/register', function() use ($database)){
+$app -> POST('/register', function() use ($database){
 	$fname = $_POST['firstname'];
 	$lname = $_POST['lastname'];
 	$email = $_POST['username'];
