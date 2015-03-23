@@ -7,7 +7,7 @@ $app = new \Slim\Slim();
      die("Connection failed: " . $database->connect_error);
 
 #get product by searching by name
-$app->get('/addProduct', function($name, $id) {
+$app->get('/addProduct', function() {
 
 	global $database;
 
@@ -54,30 +54,39 @@ $app->get('/addProduct', function($name, $id) {
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
-	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES (".$id.", ".$jsonProduct['pid'].", ".$upc.", ".$jsonProduct['name'].")");
+
+	$pname = $jsonProduct['name'];
+
+	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, '$name', $upc, '$pname')");
+
 
     echo $response;
 });
 
-$app->get('/removeProduct', function($name, $id) 
+$app->get('/removeProduct', function() 
 {
 	global $database;
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
 
+
 	$response = $database->query("DELETE FROM PantryList WHERE pid = ".$name." AND uid = ".$id."");
+
 	echo $response;
 
 
 });
 
-$app->get('/getPantryList', function($id)
+
+$app->get('/getPantryList', function() 
 {
 	global $database;
 	$id = $_GET['uid'];
 
-	$response = $database->query("SELECT pname FROM PantryList WHERE uid = ".$id."");
-	$response = $response->fetch_assoc();
+
+	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
+	$response = $response->fetch_array();
+
 	$response = json_encode($response);
 	echo $response;
 
@@ -127,6 +136,9 @@ $app->get('/getRecipes', function($query)
 
 	echo $recipe_array;
 });
+
+
+
 $app->run();
 ?>
 
