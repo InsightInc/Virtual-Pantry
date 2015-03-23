@@ -14,7 +14,12 @@ $(document).ready(function(){
 
     $("#searchForRecipe").click(function() {
         $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
+            var dataArr = JSON.parse(data);
             console.log(data);
+            $.each(dataArr,function(key, value) {
+                recipeTable.row.add([key, value]);
+            });
+            recipeTable.draw();
         });
     });
 
