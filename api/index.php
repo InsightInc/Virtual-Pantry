@@ -126,6 +126,37 @@ $app->get('/getRecipes', function($query)
 
 	echo $recipe_array;
 });
+$app -> POST('/login', function() use ($database)){
+	session_start();
+	$email = $_POST['email'];
+    $password = $_POST['password'];
+	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
+	$run = $databse -> query($query);
+	$result = $run->fetch_assoc();
+	if ($result === NULL){
+		$response = array("success"=>false);
+	}
+	else{
+		$response = array("success" => true);
+		$_SESSION['uid'] = $result['uid'];
+	}
+	echo json_encode($response);
+});
+$app -> POST('/register', function() use ($database)){
+	$fname = $_POST['firstname'];
+	$lname = $_POST['lastname'];
+	$email = $_POST['username'];
+	$password = $_POST['password'];
+	$query = "INSERT INTO User values ('$fname', '$lname', '$email', '$password', 0, 0)";
+	$database->query($query);
+	$query = "SELECT uid from User where email = '$email'";
+	$run = $database->query($query);
+	$result = $run -> fetch_assoc();
+	$_SESSION['uid'] = $result['uid'];
+	$response = array("success" => true);
+	echo json_encode($response);
+});
+
 $app->run();
 ?>
 
