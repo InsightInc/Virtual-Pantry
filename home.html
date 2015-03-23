@@ -74,9 +74,10 @@
 		  </div>-->
 		</nav>
 
-		<div class="container">
-            <div class="col-md-12" style="text-align:center">
-                <h2>Virtual Pantry Dashboard</h2>
+		<div class="container" style="padding-top:0">
+            <div class="col-md-12" style="text-align:center; margin-top:0">
+                <h1>Virtual Pantry Dashboard</h1>
+                <hr />
             </div>
 			<div class="col-md-4">
 				<table id="pantryList" class="display">
@@ -109,6 +110,20 @@
                     <input type="text" class="form-control" id="ingredientName" name="ingredientName" />
                 </div>
                 <button id="searchForRecipe" class="btn btn-primary">Search</button>
+                <table id="recipesTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Ingredients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Recipe 1</td>
+                            <td>Bacon, bacon, bacon, bacon</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 		</div>
 	</body>

@@ -10,4 +10,16 @@ $(document).ready(function(){
             console.log(data);
         });
     });
+
+    $("#searchForRecipe").click(function() {
+        $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
+            console.log(data);
+        });
+    });
+
+    $("#recipesTable").DataTable({
+        "scrollY":          "200px",
+        "scrollCollapse":   false,
+        "paging":           false
+    });
 });
