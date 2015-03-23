@@ -7,12 +7,13 @@ $app = new \Slim\Slim();
      die("Connection failed: " . $database->connect_error);
 
 #get product by searching by name
-$app->get('/addProduct', function($name, $id) {
+$app->get('/addProduct', function() {
 
 	global $database;
 
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
+
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
 	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
@@ -53,30 +54,39 @@ $app->get('/addProduct', function($name, $id) {
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
 
-	$response = $database->query('INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ('.$id.', '.$jsonProduct['pid'].', '.$upc.', '.$jsonProduct['name'].');');
+
+	$pname = $jsonProduct['name'];
+
+	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, '$name', $upc, '$pname')");
+
 
     echo $response;
 });
 
-$app->get('/removeProduct', function($name, $id) 
+$app->get('/removeProduct', function() 
 {
 	global $database;
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
 
-	$response = $database->query('DELETE FROM PantryList WHERE pid = '.$name.' AND uid = '.$id.';');
+
+	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id.");
+
 	echo $response;
 
 
 });
 
-$app->get('/getPantryList', function($id) 
+
+$app->get('/getPantryList', function() 
 {
 	global $database;
 	$id = $_GET['uid'];
 
-	$response = $database->query('SELECT pname FROM PantryList WHERE uid = '.$id.';');
-	$response = $response->fetch_assoc();
+
+	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
+	$response = $response->fetch_all();
+
 	$response = json_encode($response);
 	echo $response;
 
@@ -156,6 +166,7 @@ $app -> POST('/register', function() use ($database)){
 	$response = array("success" => true);
 	echo json_encode($response);
 });
+
 
 $app->run();
 ?>
