@@ -1,7 +1,11 @@
 $(document).ready(function(){
-    $("#allRecipes").DataTable({
-        "scrollY":          "200px",
-        "scrollCollapse":   true,
+    $("#pantryList").DataTable({
+        "scrollY":          "400px",
+        "scrollCollapse":   false,
         "paging":           false
+    });
+    
+    $("#submitNewProduct").click(function() {
+        
     });
 });
