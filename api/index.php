@@ -78,7 +78,7 @@ $app->get('/getPantryList', function()
 	$id = $_GET['uid'];
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
-	$response = $response->fetch_a();
+	$response = $response->fetch_array();
 	$response = json_encode($response);
 	echo $response;
 
