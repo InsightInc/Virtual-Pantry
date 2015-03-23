@@ -13,6 +13,7 @@ $(document).ready(function(){
     });
 
     $("#searchForRecipe").click(function() {
+        recipeTable.clear();
         $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
             var dataArr = JSON.parse(data);
             console.log(data);
