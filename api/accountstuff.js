@@ -20,3 +20,7 @@ function authenticate(){
     });
     return result;
 }
+function register(){
+	alert("Welcome");
+        window.location = "home.html";
+}
