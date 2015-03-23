@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $("#pantryList").DataTable({
-        "scrollY":          "400px",
+        "scrollY":          "390px",
         "scrollCollapse":   false,
         "paging":           false
     });
