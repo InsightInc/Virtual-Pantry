@@ -13,6 +13,7 @@ $app->get('/addProduct', function($name, $id) {
 
 	$name = $_GET['name'];
 	$id = $_GET['uid'];
+
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
 	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
@@ -70,10 +71,11 @@ $app->get('/removeProduct', function($name, $id)
 
 });
 
-$app->get('/getPantryList', function($id) 
+$app->get('/getPantryList', function($id)
 {
 	global $database;
 	$id = $_GET['uid'];
+
 
 	$response = $database->query('SELECT pname FROM PantryList WHERE uid = '.$id.';');
 	$response = $response->fetch_assoc();
