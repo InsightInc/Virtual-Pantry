@@ -22,4 +22,9 @@ $(document).ready(function(){
         "scrollCollapse":   false,
         "paging":           false
     });
+
+    //pantryList
+    $.get("api/getPantryList",function(data) {
+        console.log(data);
+    });
 });
