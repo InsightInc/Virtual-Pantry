@@ -162,7 +162,7 @@ $app -> POST('/login', function() use ($database){
 	$email = $_POST['email'];
     $password = $_POST['password'];
 	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
-	$run = $databse -> query($query);
+	$run = $database -> query($query);
 	$result = $run->fetch_assoc();
 	if ($result === NULL){
 		$response = array("success"=>false);
@@ -178,7 +178,7 @@ $app -> POST('/register', function() use ($database){
 	$lname = $_POST['lastname'];
 	$email = $_POST['username'];
 	$password = $_POST['password'];
-	$query = "INSERT INTO User values ('$fname', '$lname', '$email', '$password', 0, 0)";
+	$query = "INSERT INTO User(fname, lname, email, password) values ('$fname', '$lname', '$email', '$password')";
 	$database->query($query);
 	$query = "SELECT uid from User where email = '$email'";
 	$run = $database->query($query);

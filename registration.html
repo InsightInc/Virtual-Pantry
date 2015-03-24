@@ -12,7 +12,11 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script type = "text/JavaScript" src = "api/accountstuff.js"></script>
+
+
+<script src="js/registration.js"></script>
+
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -76,7 +80,6 @@
 			<div id="loginData">
 				<h3>Register</h3>
 		
-				<form method="post" action="JavaScript:register()">
 					<div class="form-group">
                                                 <label for="firstname">First Name</label>
                                                 <input type = "text" id = "firstname" name="firstname" class="form-control" />
@@ -97,8 +100,8 @@
                                                 <label for="passwordconfirm">Confirm Password</label>
                                                 <input type = "password" id = "passwordconfirm" name="passwordconfirm" class="form-control" />
                                         </div>
-					<button type="submit" class="btn btn-primary">Sign Up</button>
-				</form>
+					<button id="submitReg", class="btn btn-primary">Sign Up</button>
+
 			</div>
 			</div>
 			<div class="col-md-3"></div>
