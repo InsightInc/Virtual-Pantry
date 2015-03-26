@@ -1,6 +1,7 @@
+var pantryTable, recipeTable;
 $(document).ready(function(){
-    $("#pantryList").DataTable({
-        "scrollY":          "390px",
+    pantryTable = $("#pantryList").DataTable({
+        "scrollY":          "310px",
         "scrollCollapse":   false,
         "paging":           false
     });
@@ -12,12 +13,18 @@ $(document).ready(function(){
     });
 
     $("#searchForRecipe").click(function() {
+        recipeTable.clear();
         $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
+            var dataArr = JSON.parse(data);
             console.log(data);
+            $.each(dataArr,function(key, value) {
+                recipeTable.row.add([key, value]);
+            });
+            recipeTable.draw();
         });
     });
 
-    $("#recipesTable").DataTable({
+    recipeTable = $("#recipesTable").DataTable({
         "scrollY":          "200px",
         "scrollCollapse":   false,
         "paging":           false
@@ -25,6 +32,11 @@ $(document).ready(function(){
 
     //pantryList
     $.get("api/getPantryList",function(data) {
-        console.log(data);
+        var dataAsArr = JSON.parse(data);
+        console.log(dataAsArr);
+        $.each(dataAsArr,function(index, value) {
+            pantryTable.row.add([value[0], '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+        });
+        pantryTable.draw();
     });
 });

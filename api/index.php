@@ -18,6 +18,7 @@ $app->get('/addProduct', function() {
    	{
       		$id = 1;
    	}
+
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
 	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
@@ -71,6 +72,7 @@ $app->get('/removeProduct', function()
    	{
       		$id = 1;
    	}
+
 	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id.");
 	echo $response;
 });
@@ -85,11 +87,13 @@ $app->get('/getPantryList', function()
    	{
       		$id = 1;
    	}
+
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_all();
 	$response = json_encode($response);
 	echo $response;
 });
+
 $app->get('/getRecipes', function()
 // $app->get('/', function()
 {

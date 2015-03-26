@@ -12,7 +12,10 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-<script type = "text/JavaScript" src = "api/accountstuff.js"></script>
+
+<!-- login script -->
+<script src="js/login.js"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -77,8 +80,7 @@
 					<h3>Log in</h3>
 			
 
-					<form method="post" action="JavaScript:login()">
-					<form method="post" action="javascript:login()">
+					
 						<div class="form-group">
 							<label for="username">Username</label>
 							<input type="text" class="form-control" id="username" name="username" />
@@ -87,8 +89,8 @@
 							<label for="password">Password</label>
 							<input type = "password" id = "password" name="password" class="form-control" />			
 						</div>
-						<button type="submit" class="btn btn-primary">Log In</button>
-					</form>
+						<button id="submitLogin" class="btn btn-primary">Log In</button>
+					
                     <p>Don't have an account? Register <a href="registration.html">here</a>.</p>
 				</div>
 			</div>
