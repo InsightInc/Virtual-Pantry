@@ -3,16 +3,12 @@ require 'vendor/autoload.php';
 session_cache_limiter(false);
 session_start();
 $app = new \Slim\Slim();
-
  $database = new mysqli("localhost", "root", "root", "VirtualPantryDB");
  if ($database->connect_errno)
      die("Connection failed: " . $database->connect_error);
-
 #get product by searching by name
 $app->get('/addProduct', function() {
-
 	global $database;
-
 	$name = $_GET['name'];
 	if( isset( $_SESSION['uid'] ) )
    	{
@@ -49,9 +45,7 @@ $app->get('/addProduct', function() {
     $productList = json_decode($pjson);
     $upc = $productList->productsArray[0]->upc;
     $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
-
     $product = json_decode($product);
-
     $jsonProduct = array();
     $jsonProduct['pid'] = $name;
     $jsonProduct['fat'] = $product->product->nutrients[5]->nutrient_value;
@@ -62,16 +56,10 @@ $app->get('/addProduct', function() {
 	$jsonProduct['barcode'] = $upc;
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
 	$jsonProduct['name'] = $product->product->product_name;
-
-
 	$pname = $jsonProduct['name'];
-
 	$response = $database->query("INSERT INTO PantryList (uid, pid, barcode, pname) VALUES ($id, '$name', $upc, '$pname')");
-
-
     echo $response;
 });
-
 $app->get('/removeProduct', function() 
 {
 	global $database;
@@ -85,15 +73,9 @@ $app->get('/removeProduct', function()
       		$id = 1;
    	}
 
-
 	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = $id.");
-
 	echo $response;
-
-
 });
-
-
 $app->get('/getPantryList', function() 
 {
 	global $database;
@@ -108,13 +90,9 @@ $app->get('/getPantryList', function()
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_all();
-
 	$response = json_encode($response);
 	echo $response;
-
-
 });
-
 
 $app->get('/getRecipes', function()
 // $app->get('/', function()
@@ -123,13 +101,11 @@ $app->get('/getRecipes', function()
 	// $query = 'bacon';
 	$jresponse = file_get_contents('http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=&allowedIngredient[]='.$query);
 	$recipe_list = json_decode($jresponse);
-
 	$id_1 = $recipe_list->matches[0]->id;
 	$id_2 = $recipe_list->matches[1]->id;
 	$id_3 = $recipe_list->matches[2]->id;
 	$id_4 = $recipe_list->matches[3]->id;
 	$id_5 = $recipe_list->matches[4]->id;
-
 	$url_1 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_1.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
 	$url_1a = json_decode($url_1);
 	$url_2 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_2.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
@@ -140,22 +116,18 @@ $app->get('/getRecipes', function()
 	$url_4a = json_decode($url_4);
 	$url_5 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_5.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
 	$url_5a = json_decode($url_5);
-
 	$url_a = preg_replace('/(\/+)/','/',$url_1a->source->sourceRecipeUrl);
 	$url_b = preg_replace('/(\/+)/','/',$url_2a->source->sourceRecipeUrl);
 	$url_c = preg_replace('/(\/+)/','/',$url_3a->source->sourceRecipeUrl);
 	$url_d = preg_replace('/(\/+)/','/',$url_4a->source->sourceRecipeUrl);
 	$url_e = preg_replace('/(\/+)/','/',$url_5a->source->sourceRecipeUrl);
-
 	$recipe_array  = array();
 	$recipe_array[$recipe_list->matches[0]->recipeName] = $url_a;
 	$recipe_array[$recipe_list->matches[1]->recipeName] = $url_b;
 	$recipe_array[$recipe_list->matches[2]->recipeName] = $url_c;
 	$recipe_array[$recipe_list->matches[3]->recipeName] = $url_d;
 	$recipe_array[$recipe_list->matches[4]->recipeName] = $url_e;
-
 	$recipe_array = json_encode($recipe_array);
-
 	echo $recipe_array;
 });
 $app -> POST('/login', function() use ($database){
@@ -193,7 +165,6 @@ $app -> POST('/register', function() use ($database){
 	$response = array("success" => true);
 	echo json_encode($response);
 });
-
 $app->run();
 ?>
 
