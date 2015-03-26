@@ -159,6 +159,7 @@ $app->get('/getRecipes', function()
 	echo $recipe_array;
 });
 $app -> POST('/login', function() use ($database){
+
 	$email = $_POST['email'];
     $password = $_POST['password'];
 	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
@@ -172,6 +173,11 @@ $app -> POST('/login', function() use ($database){
 		$_SESSION['uid'] = $result['uid'];
 	}
 	echo json_encode($response);
+});
+$app -> POST('/logout', function() use ($database){
+	session_destroy();
+	$result = array("success" => true);
+	echo json_encode($result);
 });
 $app -> POST('/register', function() use ($database){
 	$fname = $_POST['firstname'];
@@ -187,7 +193,6 @@ $app -> POST('/register', function() use ($database){
 	$response = array("success" => true);
 	echo json_encode($response);
 });
-
 
 $app->run();
 ?>

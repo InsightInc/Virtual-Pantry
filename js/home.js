@@ -30,6 +30,21 @@ $(document).ready(function(){
         "paging":           false
     });
 
+    $("#submitLogout").click(function() {
+        $.post("api/logout",{logout: true},function(data) {
+            var status = JSON.parse(data);
+            console.log(data);
+            if(status.success == true)
+            {
+                window.location = "index.html";
+            }
+            else
+            {
+                alert("Failed to Logout");
+            }
+        });
+    });
+    
     //pantryList
     $.get("api/getPantryList",function(data) {
         var dataAsArr = JSON.parse(data);
