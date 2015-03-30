@@ -10,13 +10,6 @@ $(document).ready(function(){
         $.get("api/addProduct",{name: $("#newProductName").val()},function(data) {
             console.log(data);
         });
-        $.get("api/getPantryList",function(data) {
-            var dataAsArr = JSON.parse(data);
-            console.log(dataAsArr);
-            $.each(dataAsArr,function(index, value) {
-                pantryTable.row.add([value[0], '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
-            });
-        pantryTable.draw();
     });
 
     });
