@@ -94,11 +94,11 @@ $app->get('/getPantryList', function()
 	echo $response;
 });
 
-// $app->get('/getRecipes', function()
-$app->get('/', function()
+$app->get('/getRecipes', function()
+// $app->get('/', function()
 {
-	// $query = $_GET['query'];
-	$query = 'salt, pepper, tilapia';
+	$query = $_GET['query'];
+	// $query = 'salt, pepper, tilapia';
 	$parse_query = 	explode(", ", $query);
 
 	// echo $parse_query
