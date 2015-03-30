@@ -9,6 +9,7 @@ $(document).ready(function(){
     $("#submitNewProduct").click(function() {
         $.get("api/addProduct",{name: $("#newProductName").val()},function(data) {
             console.log(data);
+            pantryTable.fndraw();
         });
     });
 
