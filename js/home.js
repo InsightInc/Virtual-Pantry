@@ -10,9 +10,9 @@ $(document).ready(function(){
         $.get("api/addProduct",{name: $("#newProductName").val()},function(data) {
             console.log(data);
         });
+        window.location = "home.html";
     });
 
-    });
 
     $("#searchForRecipe").click(function() {
         recipeTable.clear();
