@@ -55,4 +55,18 @@ $(document).ready(function(){
         });
         pantryTable.draw();
     });
+
+    //Get product info
+    $('#pantryList tbody').on('click', 'td', function() {
+        var cellData = pantryTable.cell(this).data();
+        console.log(cellData);
+
+        $.get("api/getProductInfo", {name: cellData},function(data){
+            console.log(data);
+            alert(data);
+
+        });
+
+    });
+
 });
