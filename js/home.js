@@ -61,12 +61,21 @@ $(document).ready(function(){
         var cellData = pantryTable.cell(this).data();
         console.log(cellData);
 
-        $.get("api/getProductInfo", {name: cellData},function(data){
-            console.log(data);
-            alert(data);
-
-        });
-
+        var cindex = $(this).index();
+        if(cindex == 0){
+            $.get("api/getProductInfo", {name: cellData},function(data){
+                console.log(data);
+                alert(data);
+            });
+        }
+        if(cindex == 1)
+        {
+            cellData = $(this).parent().find("td").first().text();
+            $.get("api/removeProduct", {name: cellData},function(data){
+                console.log(data);
+                alert(data);
+            });
+        }
     });
 
 });
