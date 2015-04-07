@@ -47,6 +47,7 @@ $app->get('/addProduct', function() {
     $pjson = file_get_contents('http://api.foodessentials.com/searchprods?q='.$name.'&sid='.$sid.'&n=5&s=1&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
     $productList = json_decode($pjson);
     $upc = $productList->productsArray[0]->upc;
+    $name = str_replace('+', ' ', $name);
 
     //Get info for product using the upc code
     $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
@@ -97,7 +98,7 @@ $app->get('/removeProduct', function()
       		$id = 1;
    	}
 
-	$response = $database->query("DELETE FROM PantryList WHERE pid = '$name' AND uid = '$id'");
+	$response = $database->query("DELETE FROM PantryList WHERE pname = '$name' AND uid = '$id'");
 	echo $response;
 });
 $app->get('/getPantryList', function() 
