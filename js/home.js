@@ -7,7 +7,8 @@ $(document).ready(function(){
     });
     
     $("#submitNewProduct").click(function() {
-        $.get("api/addProduct",{name: $("#newProductName").val()},function(data) {
+        var product = $("#newProductName").val();
+        $.get("api/addProduct",{name: product},function(data) {
             console.log(data);
         });
     });
@@ -73,7 +74,12 @@ $(document).ready(function(){
             cellData = $(this).parent().find("td").first().text();
             $.get("api/removeProduct", {name: cellData},function(data){
                 console.log(data);
-                alert(data);
+                if(data == 1){
+                    alert("Success");
+                }
+                if(data == 0){
+                    alert("Failure");
+                }
             });
         }
     });
