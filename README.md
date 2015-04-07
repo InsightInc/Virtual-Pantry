@@ -5,4 +5,4 @@ Make sure to create a seperate branch anytime you are working on the project. Do
 
 API: http://docs.virtualpantryapi.apiary.io/#
 
-EC2 Instance for first interation: http://52.10.69.67/Virtual-Pantry/
+EC2 Instance: http://virtual-pantry.com/
