@@ -11,6 +11,7 @@ $(document).ready(function(){
         $.get("api/addProduct",{name: product},function(data) {
             console.log(data);
         });
+        location.reload();
     });
 
 
@@ -81,6 +82,7 @@ $(document).ready(function(){
                     alert("Failure");
                 }
             });
+            location.reload();
         }
     });
 
