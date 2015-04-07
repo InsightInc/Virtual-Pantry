@@ -7,12 +7,13 @@ $(document).ready(function(){
     });
     
     $("#submitNewProduct").click(function() {
-        $.get("api/addProduct",{name: $("#newProductName").val()},function(data) {
+        var product = $("#newProductName").val();
+        $.get("api/addProduct",{name: product},function(data) {
             console.log(data);
-            pantryTable.draw();
         });
-
+        location.reload();
     });
+
 
     $("#searchForRecipe").click(function() {
         recipeTable.clear();
@@ -20,7 +21,7 @@ $(document).ready(function(){
             var dataArr = JSON.parse(data);
             console.log(data);
             $.each(dataArr,function(key, value) {
-                recipeTable.row.add([key, value]);
+                recipeTable.row.add([key, value.link(value)]);
             });
             recipeTable.draw();
         });
@@ -56,4 +57,33 @@ $(document).ready(function(){
         });
         pantryTable.draw();
     });
+
+    //Get product info
+    $('#pantryList tbody').on('click', 'td', function() {
+        var cellData = pantryTable.cell(this).data();
+        console.log(cellData);
+
+        var cindex = $(this).index();
+        if(cindex == 0){
+            $.get("api/getProductInfo", {name: cellData},function(data){
+                console.log(data);
+                alert(data);
+            });
+        }
+        if(cindex == 1)
+        {
+            cellData = $(this).parent().find("td").first().text();
+            $.get("api/removeProduct", {name: cellData},function(data){
+                console.log(data);
+                if(data == 1){
+                    alert("Success");
+                }
+                if(data == 0){
+                    alert("Failure");
+                }
+            });
+            location.reload();
+        }
+    });
+
 });
