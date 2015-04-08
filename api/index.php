@@ -188,6 +188,10 @@ $app -> POST('/register', function() use ($database){
 		$response = array("success" => true);
 		echo json_encode($response);
 	}
+	else if($emailCount > 0){
+		$response = array("success" => "exists");
+		echo json_encode($response);
+	}
 	else{
 		$response = array("success" => false);
 		echo json_encode($response);

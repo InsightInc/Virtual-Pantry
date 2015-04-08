@@ -33,9 +33,13 @@ $(document).ready(function(){
                 {
                     window.location = "home.html";
                 }
+                else if(status.success == "exists")
+                {
+                    alert("The email you entered is already associated with an account");
+                }
                 else
                 {
-                    alert("Failed to Register");
+                    alert("Failed to register");
                 }
             });
         }
