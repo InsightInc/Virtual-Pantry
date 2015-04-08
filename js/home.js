@@ -21,7 +21,7 @@ $(document).ready(function(){
             var dataArr = JSON.parse(data);
             console.log(data);
             $.each(dataArr,function(key, value) {
-                recipeTable.row.add([key, value.link(value)]);
+                recipeTable.row.add([key, 'Link'.link(value)]);
             });
             recipeTable.draw();
         });
