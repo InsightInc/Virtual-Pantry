@@ -173,7 +173,7 @@ $app -> POST('/logout', function() use ($database){
 $app -> POST('/register', function() use ($database){
 	$fname = $_POST['firstname'];
 	$lname = $_POST['lastname'];
-	$email = $_POST['username'];
+	$email = $_POST['email'];
 	$password = $_POST['password'];
 
 	$emailStatus = $database->query("SELECT email FROM User WHERE email = '$email'");
