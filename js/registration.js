@@ -25,7 +25,7 @@ $(document).ready(function(){
         if(!hasError)
         {
             $.post("api/register",{firstname: $("#firstname").val(), lastname: $("#lastname").val(),
-                                username: $("#username").val(), password: $("#password").val()},function(data) {
+                                email: $("#email").val(), password: $("#password").val()},function(data) {
 
                 var status = JSON.parse(data);
                 console.log(data);
