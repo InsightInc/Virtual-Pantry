@@ -30,7 +30,7 @@ $(document).ready(function(){
     recipeTable = $("#recipesTable").DataTable({
         "scrollY":          "200px",
         "scrollCollapse":   false,
-        "paging":           false
+        //"paging":           false
     });
 
     $("#submitLogout").click(function() {

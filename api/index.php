@@ -198,14 +198,22 @@ $app -> POST('/register', function() use ($database){
 	$lname = $_POST['lastname'];
 	$email = $_POST['username'];
 	$password = $_POST['password'];
-	$query = "INSERT INTO User(fname, lname, email, password) values ('$fname', '$lname', '$email', '$password')";
-	$database->query($query);
-	$query = "SELECT uid from User where email = '$email'";
-	$run = $database->query($query);
-	$result = $run -> fetch_assoc();
-	$_SESSION['uid'] = $result['uid'];
-	$response = array("success" => true);
-	echo json_encode($response);
+
+	$emailStatus = $database->query("SELECT email FROM User WHERE email = '$email'");
+	if($emailStatus == false){
+		$query = "INSERT INTO User(fname, lname, email, password) values ('$fname', '$lname', '$email', '$password')";
+		$database->query($query);
+		$query = "SELECT uid from User where email = '$email'";
+		$run = $database->query($query);
+		$result = $run -> fetch_assoc();
+		$_SESSION['uid'] = $result['uid'];
+		$response = array("success" => true);
+		echo json_encode($response);
+	}
+	else{
+		$response = array("success" => false);
+		echo json_encode($response);
+	}
 });
 
 $app->get('/getProductInfo', function() 

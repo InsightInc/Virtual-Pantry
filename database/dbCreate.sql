@@ -7,13 +7,13 @@ CREATE TABLE IF NOT EXISTS User (uid int NOT NULL AUTO_INCREMENT, fname varchar(
 					password varchar(50), did int, srid int, PRIMARY KEY(uid));
 
 CREATE TABLE IF NOT EXISTS PantryList (pantryid int NOT NULL AUTO_INCREMENT, uid int NOT NULL, pid varchar(20), barcode varchar(15), 
-						 price decimal(5,2), pname varchar(50), PRIMARY KEY(pantryid), FOREIGN KEY(uid)
+						 price decimal(5,2), pname varchar(100), PRIMARY KEY(pantryid), FOREIGN KEY(uid)
 						 REFERENCES User(uid) ON DELETE CASCADE);
 
 DROP TABLE IF EXISTS Ingredient;
 CREATE TABLE IF NOT EXISTS Ingredient (pid varchar(20), fat int, chol int, sodium int, carb int, protien int,
 						 servsize int, price decimal(5,2), barcode varchar(15), cal int, exp date, 
-						 pname varchar(50), PRIMARY KEY(barcode));
+						 pname varchar(100), PRIMARY KEY(barcode));
 
 DROP TABLE IF EXISTS ExpiredList;
 CREATE TABLE IF NOT EXISTS ExpiredList (pid varchar(20), barcode varchar(15), price decimal(5,2), PRIMARY KEY(barcode));
