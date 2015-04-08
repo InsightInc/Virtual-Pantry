@@ -223,6 +223,34 @@ $app->get('/getProductInfo', function()
 
 });
 
+$app->get('/getBarcodeFromImageURL', function() 
+{
+	$url = $_GET['url'];
+	$appSID = "47ad69c4-ba3a-42db-904e-5b1762008f28";
+    $appKey = "dfa87d1a905c3c3546372f2b7b45c70a";
+    $url = "http://1.bp.blogspot.com/-4ndfq7DOZ2Q/UAbCXahilHI/AAAAAAAAHGk/RugrfDYerIY/s1600/rad544CB.png";
+
+ 	try{
+    	//build URI to read barcode
+		$strURI = "http://api.aspose.com/v1.1/barcode/recognize?type=&url=" . $url;
+
+        //sign URI
+        $signedURI = sign($strURI, $appSID, $appKey);
+ 	    //get response stream
+
+ 	    $responseStream = processCommand($signedURI, "POST", "", "");
+ 	    $json = json_decode($responseStream);
+ 	    // a list of extracted barcodes
+ 	    $barcodes = $json->Barcodes;           
+
+ 	    $barcodes = json_encode($barcodes);
+ 	    echo $barcodes;
+
+ 	    catch (Exception $e){
+ 	    throw new Exception($e->getMessage());
+ 	    }
+});
+
 $app->run();
 ?>
 
