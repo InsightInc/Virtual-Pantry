@@ -119,9 +119,6 @@ $app->get('/getPantryList', function()
 	echo $response;
 });
 
-// function make_links_clickable($text){
-//     return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
-
 $app->get('/getRecipes', function()
 // $app->get('/', function()
 {
@@ -129,47 +126,27 @@ $app->get('/getRecipes', function()
 	// $query = 'salt, pepper, tilapia';
 	$parse_query = 	explode(", ", $query);
 
-	// echo $parse_query
-
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
-	// if(count($parse_query) > 1)
-	// {
-		for($x = 0; $x < count($parse_query); $x++)			
-		{
-			$request_url .= '&allowedIngredient[]='.$parse_query[$x];
-		}
-	// }
-	// echo $request_url;
+
+	for($x = 0; $x < count($parse_query); $x++)			
+	{
+		$request_url .= '&allowedIngredient[]='.$parse_query[$x];
+	}
+
 
 	$jresponse = file_get_contents($request_url);
 	$recipe_list = json_decode($jresponse);
-	$id_1 = $recipe_list->matches[0]->id;
-	$id_2 = $recipe_list->matches[1]->id;
-	$id_3 = $recipe_list->matches[2]->id;
-	$id_4 = $recipe_list->matches[3]->id;
-	$id_5 = $recipe_list->matches[4]->id;
-	$url_1 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_1.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$url_1a = json_decode($url_1);
-	$url_2 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_2.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$url_2a = json_decode($url_2);
-	$url_3 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_3.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$url_3a = json_decode($url_3);
-	$url_4 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_4.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$url_4a = json_decode($url_4);
-	$url_5 = file_get_contents('http://api.yummly.com/v1/api/recipe/'.$id_5.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$url_5a = json_decode($url_5);
-	$url_a = preg_replace('/(\/+)/','/',$url_1a->source->sourceRecipeUrl);
-	$url_b = preg_replace('/(\/+)/','/',$url_2a->source->sourceRecipeUrl);
-	$url_c = preg_replace('/(\/+)/','/',$url_3a->source->sourceRecipeUrl);
-	$url_d = preg_replace('/(\/+)/','/',$url_4a->source->sourceRecipeUrl);
-	$url_e = preg_replace('/(\/+)/','/',$url_5a->source->sourceRecipeUrl);
-	$recipe_array  = array();
-	$recipe_array[$recipe_list->matches[0]->recipeName] = $url_a;
-	$recipe_array[$recipe_list->matches[1]->recipeName] = $url_b;
-	$recipe_array[$recipe_list->matches[2]->recipeName] = $url_c;
-	$recipe_array[$recipe_list->matches[3]->recipeName] = $url_d;
-	$recipe_array[$recipe_list->matches[4]->recipeName] = $url_e;
-	$recipe_array = json_encode($recipe_array);
+
+	$array_recipes = array();
+	for($x = 0; $x < count($recipe_list->matches); $x++)
+	{
+		$url = json_decode(file_get_contents('http://api.yummly.com/v1/api/recipe/'.$recipe_list->matches[$x]->id.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e'));
+		$url = preg_replace('/(\/+)/','/',$url->source->sourceRecipeUrl);
+		// $url = rawurlencode($url->source->sourceRecipeUrl)
+		$array_recipes[$recipe_list->matches[$x]->recipeName] = $url;
+	}
+
+	$recipe_array = json_encode($array_recipes);
 	echo $recipe_array;
 });
 $app -> POST('/login', function() use ($database){
