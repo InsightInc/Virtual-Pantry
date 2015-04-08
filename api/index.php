@@ -176,8 +176,8 @@ $app -> POST('/register', function() use ($database){
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	$emailStatus = $database->query("SELECT email FROM User WHERE email = '$email'");
-	if($emailStatus == false){
+	$emailStatus = $database->query("SELECT * FROM User WHERE email = '$email'");
+	if(!$emailStatus){
 		$query = "INSERT INTO User(fname, lname, email, password) values ('$fname', '$lname', '$email', '$password')";
 		$database->query($query);
 		$query = "SELECT uid from User where email = '$email'";
