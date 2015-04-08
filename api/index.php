@@ -176,8 +176,9 @@ $app -> POST('/register', function() use ($database){
 	$email = $_POST['email'];
 	$password = $_POST['password'];
 
-	$emailStatus = $database->query("SELECT * FROM User WHERE email = '$email'");
-	if(!$emailStatus){
+	$emailStatus = $database->query("SELECT count(1) FROM User WHERE email = '$email'");
+	$emailCount = mysql_result($emailStatus, 0)
+	if($emailCount == 0){
 		$query = "INSERT INTO User(fname, lname, email, password) values ('$fname', '$lname', '$email', '$password')";
 		$database->query($query);
 		$query = "SELECT uid from User where email = '$email'";
