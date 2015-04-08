@@ -119,6 +119,9 @@ $app->get('/getPantryList', function()
 	echo $response;
 });
 
+// function make_links_clickable($text){
+//     return preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
+
 $app->get('/getRecipes', function()
 // $app->get('/', function()
 {
@@ -129,13 +132,13 @@ $app->get('/getRecipes', function()
 	// echo $parse_query
 
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
-	if(count($parse_query) > 1)
-	{
-		for($x = 1; $x < count($parse_query); $x++)			
+	// if(count($parse_query) > 1)
+	// {
+		for($x = 0; $x < count($parse_query); $x++)			
 		{
 			$request_url .= '&allowedIngredient[]='.$parse_query[$x];
 		}
-	}
+	// }
 	// echo $request_url;
 
 	$jresponse = file_get_contents($request_url);
