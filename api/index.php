@@ -169,7 +169,7 @@ $app->get('/getRecipes', function()
 	for($x = 0; $x < count($recipe_list->matches); $x++)
 	{
 		$url = json_decode(file_get_contents('http://api.yummly.com/v1/api/recipe/'.$recipe_list->matches[$x]->id.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e'));
-		$url = preg_replace('/(\/+)/','/',$url->source->sourceRecipeUrl);
+		$url = preg_replace('~(^|[^:])//+~', '\\1/',$url->source->sourceRecipeUrl);
 		// $url = rawurlencode($url->source->sourceRecipeUrl)
 		$array_recipes[$recipe_list->matches[$x]->recipeName] = $url;
 	}
