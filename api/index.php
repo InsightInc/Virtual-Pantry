@@ -14,10 +14,6 @@ $app->get('/addProduct', function() {
    	{
 		 $id =  $_SESSION['uid'];
    	}
-   	else
-   	{
-      		$id = 1;
-   	}
 
 	#Connect to foodessentials api ------------------------------------------------
 	#Get session id
@@ -121,10 +117,6 @@ $app->get('/removeProduct', function()
    	{
 		 $id =  $_SESSION['uid'];
    	}
-   	else
-   	{
-      		$id = 1;
-   	}
 
 	$response = $database->query("DELETE FROM PantryList WHERE pname = '$name' AND uid = '$id'");
 	echo $response;
@@ -135,10 +127,6 @@ $app->get('/getPantryList', function()
 	if( isset( $_SESSION['uid'] ) )
    	{
 		 $id =  $_SESSION['uid'];
-   	}
-   	else
-   	{
-      		$id = 1;
    	}
 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
