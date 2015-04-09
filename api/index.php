@@ -85,6 +85,34 @@ $app->get('/addProduct', function() {
 
     echo $response;
 });
+$app->POST('/changeEmail', function(){
+	global $database;
+	$email = $_POST['email'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+		 $database->query("UPDATE User SET email ='$email' WHERE uid = $id");
+		 $response = array("success" => true);
+   	}
+   	else{
+   		$response = array("success" => false);
+   	}
+   	echo json_encode($response);
+});
+$app->POST('/changePassword', function(){
+	global $database;
+	$password = $_POST['password'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+		 $database->query("UPDATE User SET password ='$password' WHERE uid = $id");
+		 $response = array("success" => true);
+   	}
+   	else{
+   		$response = array("success" => false);
+   	}
+   	echo json_encode($response);
+});
 $app->get('/removeProduct', function() 
 {
 	global $database;
