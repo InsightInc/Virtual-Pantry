@@ -251,7 +251,8 @@ $app->get('/dietaryRestrictions', function()
 	$allergy_array = array();
 	for($x = 0; $x < count($dietary_restrictions); $x++)
 	{
-		$allergy_array[$dietary_restrictions[$x]->shortDescription] = $dietary_restrictions[$x]->id; 
+		if($dietary_restrictions[$x]->shortDescription != "Sulfite-Free")
+			$allergy_array[$dietary_restrictions[$x]->shortDescription] = $dietary_restrictions[$x]->id; 
 	}
 	echo json_encode($allergy_array);
 
