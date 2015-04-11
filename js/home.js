@@ -17,9 +17,11 @@ $(document).ready(function(){
 
     $("#searchForRecipe").click(function() {
         recipeTable.clear();
+	$("#recipeLoadIndic").show();
         $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
             var dataArr = JSON.parse(data);
             console.log(data);
+	    $("#recipeLoadIndic").hide();
             $.each(dataArr,function(key, value) {
                 recipeTable.row.add([key, 'Link'.link(value)]);
             });
@@ -27,10 +29,16 @@ $(document).ready(function(){
         });
     });
 
+    $("#ingredientName").keyup(function(event) {
+	if(event.keyCode == 13)
+	    $("#searchForRecipe").click();
+    });
+
     recipeTable = $("#recipesTable").DataTable({
         "scrollY":          "200px",
         "scrollCollapse":   false,
-        //"paging":           false
+        "paging":           false,
+	"dom":		    "ti"
     });
 
     $("#submitLogout").click(function() {
