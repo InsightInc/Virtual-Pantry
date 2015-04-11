@@ -113,22 +113,29 @@ $app->get('/removeProduct', function()
 {
 	global $database;
 	$name = $_GET['name'];
+
+	//Get User
 	if( isset( $_SESSION['uid'] ) )
    	{
 		 $id =  $_SESSION['uid'];
    	}
 
+   	//Delete item from User's Pantry
 	$response = $database->query("DELETE FROM PantryList WHERE pname = '$name' AND uid = '$id'");
+
 	echo $response;
 });
 $app->get('/getPantryList', function() 
 {
 	global $database;
+
+	//Get User
 	if( isset( $_SESSION['uid'] ) )
    	{
 		 $id =  $_SESSION['uid'];
    	}
 
+   	//Get all items in User's pantry and return it as JSON 
 	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_all();
 	$response = json_encode($response);
@@ -218,7 +225,11 @@ $app->get('/getProductInfo', function()
 {
 	global $database;
 	$productname = $_GET['name'];
+
+	//Get item info based off its name
 	$result = $database->query("SELECT * FROM Ingredient WHERE pname = '$productname'");
+
+	//Return item info as JSON
 	if($result) {
 		$pinfo = $result->fetch_assoc();
 		$pinfo = json_encode($pinfo);
@@ -230,6 +241,36 @@ $app->get('/getProductInfo', function()
 
 });
 
+$app->POST('/checkUser', function() 
+{
+	global $database;
+	$response = false;
+
+	//Check if uid is set and if the user exists in the database
+	if(isset( $_SESSION['uid']))
+	{
+		$uid = $_SESSION['uid'];
+		$result = $database->query("SELECT * FROM User WHERE uid = '$uid'");
+		$result = $result->num_rows;
+		if($result == 1)
+		{
+			$response = true;
+		}
+		else
+		{
+			$response = false;
+		}
+
+	}
+	else
+	{
+		$response = false;
+	}
+
+	echo $response;
+
+
+});
 
 $app->run();
 ?>

@@ -1,5 +1,15 @@
 var pantryTable, recipeTable;
 $(document).ready(function(){
+
+    $.post("api/checkUser", function(data){
+        console.log(data);
+        if(data == false)
+        {
+            window.location = "index.html";
+            alert("You are not authorized to view this page")
+        }
+    });
+
     pantryTable = $("#pantryList").DataTable({
         "scrollY":          "310px",
         "scrollCollapse":   false,
@@ -87,3 +97,4 @@ $(document).ready(function(){
     });
 
 });
+
