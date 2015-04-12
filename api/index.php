@@ -97,15 +97,29 @@ $app->POST('/changeEmail', function(){
 });
 $app->POST('/changePassword', function(){
 	global $database;
-	$password = $_POST['password'];
+	$oldpass = $_POST['password'];
+	$newpassword = $_POST['newPass'];
+	$confirm = $_POST['confirm'];
 	if( isset( $_SESSION['uid'] ) )
    	{
 		 $id =  $_SESSION['uid'];
-		 $database->query("UPDATE User SET password ='$password' WHERE uid = $id");
-		 $response = array("success" => true);
+		 if(strcmp($newpassword, $confirm) == 0){
+		 	$run = $database -> query("SELECT password FROM User WHERE uid = $id");
+			$result = $run->fetch_assoc();
+		 	if (strcmp($oldpass, $result['password']) == 0){
+		 		$database->query("UPDATE User SET password ='$newpassword' WHERE uid = $id");
+		 		$response = "Your Password has been changed";
+		 	}
+		 	else{
+		 		$response = "You entered the incorrect existing password";
+		 	}
+		 }
+		 else{
+		 	$response = "The new passwords did not match";
+		 }
    	}
    	else{
-   		$response = array("success" => false);
+   		$response = "You are not a logged in user";
    	}
    	echo json_encode($response);
 });
