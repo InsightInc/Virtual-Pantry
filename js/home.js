@@ -23,7 +23,7 @@ $(document).ready(function(){
             console.log(data);
 	    $("#recipeLoadIndic").hide();
             $.each(dataArr,function(key, value) {
-                recipeTable.row.add([key, 'Link'.link(value)]);
+                recipeTable.row.add([key.link(value)]);
             });
             recipeTable.draw();
         });
