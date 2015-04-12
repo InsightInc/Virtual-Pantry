@@ -27,3 +27,6 @@ DROP TABLE IF EXISTS DietaryRestrictions;
 CREATE TABLE IF NOT EXISTS DietaryRestrictions (uid int, restricts tinyint, PRIMARY KEY(uid), FOREIGN KEY(uid)
 											   REFERENCES User(uid) ON DELETE CASCADE);
 
+DROP TABLE IF EXISTS DietaryKey;
+CREATE TABLE IF NOT EXISTS DietaryKey (id tinyint, name varchar(20), apicode varchar(30), PRIMARY KEY(id));
+

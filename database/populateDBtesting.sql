@@ -1,22 +1,10 @@
 USE 'VirtualPantryDB';
 
--- CREATE TABLE User (uid int NOT NULL AUTO_INCREMENT, fname varchar(30), lname varchar(30), email varchar(45), 
--- 					password varchar(50), did int, srid int, PRIMARY KEY(uid));
+USE 'VirtualPantryDB';
 
-INSERT into User(fname, lname, email, password) values("Ashley", "Isles", "ashley@smu.edu", "test1"),
-("test", "user", "test@smu.edu", "test1"),
-("Nick", "Antonelli", "nick@smu.edu", "test1"),
-("Alex", "Russell", "alex@smu.edu", "test1"),
-("Conner", "Knuston", "conner@smu.edu", "test1");
+INSERT into DietaryKey VALUES(0, "Dairy", "396^Dairy-Free"), (1, "Egg", "397^Egg-Free"), (2, "Gluten", "393^Gluten-Free"), (3, "Peanut", "394^Peanut-Free"),
+							 (4, "Seafood", "398^Seafood-Free"), (5, "Soy", "400^Soy-Free"), (6, "Tree Nut", "395^Tree+Nut-Free"), (7, "Wheat", "392^Wheat-Free");
 
--- CREATE TABLE PantryList (pantryid int NOT NULL AUTO_INCREMENT, u_id int NOT NULL, pid varchar(20), barcode int, 
--- 						 price decimal(5,2), pname varchar(50), PRIMARY KEY(pantryid), FOREIGN KEY(u_id)
--- 						 REFERENCES User(uid) ON DELETE CASCADE);
-
-INSERT into PantryList(uid, pid, barcode, pname) values(1, "Bacon", "035826034724", "Bacon"),
-(1, "Oreo", "044000007492", "Oreo"),
-(1,"Apple", "033383027814","Apple"),
-(1, "Pomegranate", "073296153637", "Pomegranate");
 
 
 

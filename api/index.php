@@ -276,8 +276,33 @@ $app->POST('/addDiet', function()
 	$dietR = $_POST['allergy'];
 	$id = $_SESSION['uid'];
 
-	//Add restriction to the 
-	$response = $database->die
+	//Get key from Dietary Key table
+	$response = $database->query("SELECT * FROM DietaryKey WHERE name = '$dietR'");
+	$response = $response->fetch_assoc;
+	$response = json_encode($response);
+
+	//Add to DietaryRestriction table
+	$did = $response['id'];
+	$result = $database->query("INSERT INTO DietaryRestriction VALUES('$id', '$did')");
+	echo $result;
+
+});
+
+$app->get('/removeDiet', function() 
+{
+	//Get User and diet restriction
+	$dietR = $_POST['allergy'];
+	$id = $_SESSION['uid'];
+
+	//Get key from Dietary Key table
+	$response = $database->query("SELECT * FROM DietaryKey WHERE name = '$dietR'");
+	$response = $response->fetch_assoc;
+	$response = json_encode($response);
+
+	//Remove to DietaryRestriction table
+	$did = $response['id'];
+	$result = $database->query("DELETE FROM DietaryRestriction WHERE uid = '$id' AND restricts = '$did'");
+	echo $result;
 });
 
 $app->run();
