@@ -58,6 +58,10 @@ $(document).ready(function(){
         });
     });
     
+    $("#viewProfile").click(function(){
+        window.location = "profile.html";
+    });
+    
     //pantryList
     $.get("api/getPantryList",function(data) {
         var dataAsArr = JSON.parse(data);
