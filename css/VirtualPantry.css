@@ -13,7 +13,16 @@ span.deleteRecipeItem {
 }
 
 .navbar-default {
-    background-color: red;
+    background-color: #95EC00;
     border-color: #E7E7E7;
     background-image:none;
+}
+
+body {
+	background-color: #C4F66F;
+}
+
+.well {
+	background-image: none;
+	background-color: #F5FD72;
 }
