@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    var emailCheck = false;
     $("#submitReg").click(function() {
         var hasError = false;
         $("div.form-group").each(function(index,val) {
@@ -20,9 +21,25 @@ $(document).ready(function(){
             $(".passForm").addClass("has-error");
             hasError = true;
         }
-        else
+        else{
             $("#passMismatch").empty();
-        if(!hasError)
+        }
+        $.get("api/validateEmail",{email: $("#email").val()}, function(data){
+            console.log(data);
+            if(data == false)
+            {
+                $("#emailValid").html("Not a valid email.");
+                $(".emailForm").addClass("has-error");
+                hasError = true;
+                emailCheck = false;
+            }
+            else
+            {
+                $("#emailValid").empty();
+                emailCheck = true;
+            }
+        });
+        if(!hasError && emailCheck == true)
         {
             $.post("api/register",{firstname: $("#firstname").val(), lastname: $("#lastname").val(),
                                 email: $("#email").val(), password: $("#password").val()},function(data) {
