@@ -242,21 +242,47 @@ $app->get('/getProductInfo', function()
 
 });
 
-$app->get('/dietaryRestrictions', function()
-// $app->get('/', function()
+$app->get('/getUserInfo', function()
 {
-	$dietary_restrictions = file_get_contents('http://api.yummly.com/v1/api/metadata/allergy?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-	$dietary_restrictions = substr($dietary_restrictions, 23, -2);
-	$dietary_restrictions = json_decode($dietary_restrictions);
-	$allergy_array = array();
-	for($x = 0; $x < count($dietary_restrictions); $x++)
-	{
-		if($dietary_restrictions[$x]->shortDescription != "Sulfite-Free")
-			$allergy_array[$dietary_restrictions[$x]->shortDescription] = $dietary_restrictions[$x]->id; 
-	}
-	echo json_encode($allergy_array);
+	global $database;
+	// $name = $_GET['name'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		$id =  $_SESSION['uid'];
+   	}
+   	else
+   	{
+      	$id = 1;
+   	}
+
+   	$result = $database->query("SELECT fname, lname, email FROM User WHERE uid = '$id'");
+
+   	if($result)
+   	{
+   		$user_profile = $result->fetch_assoc();
+   		echo json_encode($user_profile);
+   	}
+   	else
+   	{
+   		echo $result;
+   	}
 
 });
+
+// $app->get('/dietaryRestrictions', function()
+// {
+// 	$dietary_restrictions = file_get_contents('http://api.yummly.com/v1/api/metadata/allergy?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
+// 	$dietary_restrictions = substr($dietary_restrictions, 23, -2);
+// 	$dietary_restrictions = json_decode($dietary_restrictions);
+// 	$allergy_array = array();
+// 	for($x = 0; $x < count($dietary_restrictions); $x++)
+// 	{
+// 		if($dietary_restrictions[$x]->shortDescription != "Sulfite-Free")
+// 			$allergy_array[$dietary_restrictions[$x]->shortDescription] = $dietary_restrictions[$x]->id; 
+// 	}
+// 	echo json_encode($allergy_array);
+
+// });
 
 
 $app->run();
