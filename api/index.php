@@ -187,7 +187,6 @@ $app->get('/getRecipes', function()
 	// 	{
 	// 		array_push($apicode_array, $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = '$id_arrray[$y]'"));
 	// 	}
-
 	// }
 
 
