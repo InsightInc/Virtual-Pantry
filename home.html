@@ -78,7 +78,7 @@
 		</nav>
 
 
-		<div class="container" style="padding-top:0">
+		<div class="container" style="padding-top:0; width:95%;">
             <div class="col-md-12" style="text-align:center; margin-top:0">
                 <h1>Virtual Pantry Dashboard</h1>
                 <hr />
@@ -107,15 +107,14 @@
             <div class="col-md-4">
                 <h3>Search for a Recipe by Ingredient</h3>
                 <div class="form-group form-inline">
-                    <label for="ingredientName">Ingredient Name</label>
-                    <input type="text" class="form-control" id="ingredientName" name="ingredientName" />
+                    <input type="text" class="form-control" placeholder="Ingredient Name" id="ingredientName" name="ingredientName" />
+		    <button id="searchForRecipe" class="btn btn-primary">Search</button>
+		    <span id="recipeLoadIndic" style="display:none"><img src="images/ajax-loader-2.gif" /></span>
                 </div>
-                <button id="searchForRecipe" class="btn btn-primary">Search</button>
                 <table id="recipesTable" class="display">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
