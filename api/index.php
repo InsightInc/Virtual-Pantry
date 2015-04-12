@@ -260,16 +260,24 @@ $app->POST('/checkUser', function()
 		{
 			$response = false;
 		}
-
 	}
 	else
 	{
 		$response = false;
 	}
-
 	echo $response;
+});
 
+$app->POST('/addDiet', function() 
+{
+	global $database;
 
+	//Get User and new diet restriction
+	$dietR = $_POST['allergy'];
+	$id = $_SESSION['uid'];
+
+	//Add restriction to the 
+	$response = $database->die
 });
 
 $app->run();
