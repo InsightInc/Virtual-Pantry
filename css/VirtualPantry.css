@@ -15,4 +15,5 @@ span.deleteRecipeItem {
 .navbar-default {
     background-color: red;
     border-color: #E7E7E7;
+    background-image:none;
 }
