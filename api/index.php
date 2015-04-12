@@ -331,6 +331,22 @@ $app->get('/getUserInfo', function()
 
 });
 
+$app->get('/validateEmail', function()
+{
+	$response = false;
+	$email = $_GET['email'];
+	$result = filter_var($email, FILTER_VALIDATE_EMAIL);
+	if($result == false)
+	{
+		$response = false;
+	}
+	else if($result == $email)
+	{
+		$response = true;
+	}
+	echo $response;
+});
+
 // $app->get('/dietaryRestrictions', function()
 // {
 // 	$dietary_restrictions = file_get_contents('http://api.yummly.com/v1/api/metadata/allergy?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
