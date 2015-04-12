@@ -250,10 +250,6 @@ $app->get('/getUserInfo', function()
    	{
 		$id =  $_SESSION['uid'];
    	}
-   	else
-   	{
-      	$id = 1;
-   	}
 
    	$result = $database->query("SELECT fname, lname, email FROM User WHERE uid = '$id'");
 
