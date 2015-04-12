@@ -290,6 +290,8 @@ $app->POST('/addDiet', function()
 
 $app->get('/removeDiet', function() 
 {
+	global $database;
+	
 	//Get User and diet restriction
 	$dietR = $_POST['allergy'];
 	$id = $_SESSION['uid'];
