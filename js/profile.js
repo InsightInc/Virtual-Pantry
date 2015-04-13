@@ -143,7 +143,7 @@ $(document).ready(function(){
         $.post("api/changeDiet", {checkbox: allergies}, function(data){
             console.log(data);
         });
-
+        
 
     });
 
@@ -167,8 +167,9 @@ $(document).ready(function(){
                 li.appendChild(document.createTextNode(x[i][0]));
                 ul.appendChild(li);
                 $("input[name='checkbox']")[x[i][1]].checked = true;
-            }
-
+            }   
         });
+
+});
 
 });
