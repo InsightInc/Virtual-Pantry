@@ -123,6 +123,37 @@ $app->POST('/changePassword', function(){
    	}
    	echo json_encode($response);
 });
+
+$app->POST('/changeEmail', function(){
+	global $database;
+	$oldemail = $_POST['email'];
+	$newemail = $_POST['newE'];
+	$confirm = $_POST['confirm'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+		 if(strcmp($newE, $confirm) == 0){
+		 	$run = $database -> query("SELECT email FROM User WHERE uid = $id");
+			$result = $run->fetch_assoc();
+		 	if (strcmp($oldemail, $result['email']) == 0){
+		 		$database->query("UPDATE User SET email ='$newemail' WHERE uid = $id");
+		 		$response = "Your Email has been changed";
+		 	}
+		 	else{
+		 		$response = "You entered the incorrect existing email";
+		 	}
+		 }
+		 else{
+		 	$response = "The new emails did not match";
+		 }
+   	}
+   	else{
+   		$response = "You are not a logged in user";
+   	}
+   	echo json_encode($response);
+});
+
+
 $app->get('/removeProduct', function() 
 {
 	global $database;
