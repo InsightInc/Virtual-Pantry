@@ -45,7 +45,7 @@ $(document).ready(function(){
 
         if(!hasError && emailCheck == true)
         {
-            $.post("api/register",{firstname: $("#firstname").val(), lastname: $("#lastname").val(),
+            $.post("api/register",{firstname: $("#firstname").val().toUpperCase(), lastname: $("#lastname").val().toUpperCase(),
                                 email: $("#email").val(), password: $("#password").val()},function(data) {
 
                 var status = JSON.parse(data);
