@@ -2,6 +2,7 @@
 <html>
 <head>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 	<title> Profile </title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -28,6 +29,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <button id = "submitLogout" class="btn btn-default navbar-btn">Logout</button>
+      <button id = "viewProfile" class="btn btn-default navbar-btn">Profile</button>
       <a class="navbar-brand" href="home.html">Virtual Pantry</a>
     </div>
 
@@ -70,24 +73,21 @@
     </div>
   </div>-->
 </nav>
-
-	<div class="jumbotron">			
-		<div class="container">
-			<div class="col-md-3"></div>
-			<div class="col-md-6">
+  <!--- <div class="jumbotron"> -->
+		<div class="container" style="padding-top:0; width:96%;">
+			<div class="col-md-12" style="text-align:center; margin-top:0">
 				<h1>Your Profile</h1>
-				<div id="loginData">
-					<h3>Account Information</h3>
-
-            <label for="allergies">My Allergies:</label>
-            <ul>
-              <li></li>
-
+        <hr />
+      </div> 
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+            <h2>My Allergies</h2>
+            <ul id="alist">
 
             </ul>
 
             <button id="change" class="btn btn-primary" data-toggle="modal" data-target="#allergies">Add/Remove Allergies</button><br><br>
-
+            </div>
             <!-- Modal -->
             <div class="modal fade" id="allergies" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -97,33 +97,38 @@
                     <h4 class="modal-title" id="myModalLabel">Change Your Allergies</h4>
                   </div>
                   <div class="modal-body">
-                     <p>Check to add : Uncheck to Remove</p>
-                    <input type="checkbox" name="checkbox[]" value= "0"> Dairy Free <br>
-                    <input type="checkbox" name="checkbox[]" value= "1"> Egg Free<br>
-                    <input type="checkbox" name="checkbox[]" value= "2"> Gluten Free<br>
-                    <input type="checkbox" name="checkbox[]" value= 3> Peanut Free<br>
-                    <input type="checkbox" name="checkbox[]" value= 4> Seafood Free<br>
-                    <input type="checkbox" name="checkbox[]" value= 5> Soy Free<br>
-                    <input type="checkbox" name="checkbox[]" value= 6> Nut Free<br>
-                    <input type="checkbox" name="checkbox[]" value= 7> Wheat Free<br>
 
+                     <p><b>Check any allergies you have and hit submit. When you search for recipes these allergies will be taken into account.</b></p>
+                    <div class="form-group oldpassForm">
+                      <input type="checkbox" id="0" name="checkbox" value= "0"> Dairy Free <br>
+                      <input type="checkbox" id="1" name="checkbox" value= "1"> Egg Free<br>
+                      <input type="checkbox" id="2" name="checkbox" value= "2"> Gluten Free<br>
+                      <input type="checkbox" id="3" name="checkbox" value= "3"> Peanut Free<br>
+                      <input type="checkbox" id="4" name="checkbox" value= "4"> Seafood Free<br>
+                      <input type="checkbox" id="5" name="checkbox" value= "5"> Soy Free<br>
+                      <input type="checkbox" id="6" name="checkbox" value= "6"> Nut Free<br>
+                      <input type="checkbox" id="7" name="checkbox" value= "7"> Wheat Free<br>
+                    </div>
                   </div>
                     
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="changeDiet" class="btn btn-primary">Save changes</button>
+                    <button id="changeDiet" class="btn btn-primary" data-dismiss="modal">Save changes</button>
                   </div>
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <h2>Account Information</h2>
+              <label for="firstname">First Name:</label><p id="fname"></p>
 
-            <label for="firstname">First Name:</label><p id="fname"></p><br>
+              <label for="lastname">Last Name:</label><p id="lname"></p>
 
-            <label for="lastname">Last Name:</label><p id="lname"></p><br>
+              <label for="email">Email:</label><p id="email"></p>
 
-            <label for="email">Email:</label><p id="email"></p><br>
-
-            <button id="changePassword" class="btn btn-primary" data-toggle="modal" data-target="#changeInformation">Change Password</button>
+              <button id="changePassword" class="btn btn-primary" data-toggle="modal" data-target="#changeInformation">Change Password</button>
+              <button id="changeEmail" class="btn btn-primary" data-toggle="modal" data-target="#changeEmailModal">Change Email</button>
+            </div>
             <!-- <button id="changePass" class="btn btn-primary" data-toggle="modal" data-target="#changePass">Change Password</button> -->
 
             <!-- Modal -->
@@ -174,7 +179,42 @@
                 </div>
               </div>
             </div>
+            </div>
 
+            <div class="modal fade" id="changeEmailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Change Your Email</h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="form-group2">
+                      <label for="oldemail">Old Email Address</label>
+                      <input type = "text" id = "oldemail" name="oldemail" class="form-control regForm" />      
+                      <span class="errorMsg"></span>
+                    </div>
+                    <div class="form-group2 emailForm1">
+                      <label for="newemail">New Email Address</label>
+                      <input type = "text" id = "newemail" name="newemail" class="form-control regForm" />      
+                      <span class="errorMsg"></span>
+                      <span id="errorMsg2"></span>
+                    </div>
+                    <div class="form-group2 emailForm2">
+                      <label for="emailconfirm">Confirm New Email Address</label>
+                      <input type = "text" id = "emailconfirm" name="emailconfirm" class="form-control regForm" />
+                      <span class="errorMsg"></span>
+                      <span id="errorMsg3"></span>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="changeemail" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
             <!-- <div class="modal fade" id="changePass" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -209,10 +249,7 @@
  -->
 						
 						
-				</div>
-			</div>
-			<div class="col-md-3"></div>
-		</div>
+							</div>
 
 	</div>
 </body>

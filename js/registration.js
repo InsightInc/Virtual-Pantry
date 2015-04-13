@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     var emailCheck = false;
+    jQuery.ajaxSetup({async:false});
     $("#submitReg").click(function() {
         var hasError = false;
         $("div.form-group").each(function(index,val) {
@@ -39,6 +40,9 @@ $(document).ready(function(){
                 emailCheck = true;
             }
         });
+        console.log(hasError);
+        console.log(emailCheck);
+
         if(!hasError && emailCheck == true)
         {
             $.post("api/register",{firstname: $("#firstname").val(), lastname: $("#lastname").val(),
@@ -60,6 +64,7 @@ $(document).ready(function(){
                 }
             });
         }
+        jQuery.ajaxSetup({async:true});
     });
 
 })

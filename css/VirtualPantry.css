@@ -1,6 +1,11 @@
 div.jumbotron {
 	/*opacity: 0.4;
 	filter: alpha(opacity=40);  For IE8 and earlier */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #a86d26;
+  background-color: #eae2c3;
 }
 
 div.dashboardHeader {

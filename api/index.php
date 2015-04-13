@@ -81,20 +81,6 @@ $app->get('/addProduct', function() {
 
     echo $response;
 });
-$app->POST('/changeEmail', function(){
-	global $database;
-	$email = $_POST['email'];
-	if( isset( $_SESSION['uid'] ) )
-   	{
-		 $id =  $_SESSION['uid'];
-		 $database->query("UPDATE User SET email ='$email' WHERE uid = $id");
-		 $response = array("success" => true);
-   	}
-   	else{
-   		$response = array("success" => false);
-   	}
-   	echo json_encode($response);
-});
 $app->POST('/changePassword', function(){
 	global $database;
 	$oldpass = $_POST['password'];
@@ -129,27 +115,37 @@ $app->POST('/changeEmail', function(){
 	$oldemail = $_POST['email'];
 	$newemail = $_POST['newE'];
 	$confirm = $_POST['confirm'];
-	if( isset( $_SESSION['uid'] ) )
-   	{
-		 $id =  $_SESSION['uid'];
-		 if(strcmp($newE, $confirm) == 0){
-		 	$run = $database -> query("SELECT email FROM User WHERE uid = $id");
-			$result = $run->fetch_assoc();
-		 	if (strcmp($oldemail, $result['email']) == 0){
-		 		$database->query("UPDATE User SET email ='$newemail' WHERE uid = $id");
-		 		$response = "Your Email has been changed";
-		 	}
-		 	else{
-		 		$response = "You entered the incorrect existing email";
-		 	}
-		 }
-		 else{
-		 	$response = "The new emails did not match";
-		 }
-   	}
-   	else{
-   		$response = "You are not a logged in user";
-   	}
+
+	$test = $database->query("SELECT * FROM User WHERE email = '$newemail'");
+	$emailCount = $test->num_rows;
+	if($emailCount == 0)
+	{
+		if( isset( $_SESSION['uid'] ) )
+	   	{
+			 $id =  $_SESSION['uid'];
+			 if(strcmp($newemail, $confirm) == 0){
+			 	$run = $database -> query("SELECT email FROM User WHERE uid = $id");
+				$result = $run->fetch_assoc();
+			 	if (strcmp($oldemail, $result['email']) == 0){
+			 		$database->query("UPDATE User SET email ='$newemail' WHERE uid = $id");
+			 		$response = "Your Email has been changed";
+			 	}
+			 	else{
+			 		$response = "You entered the incorrect existing email";
+			 	}
+			 }
+			 else{
+			 	$response = "The new emails did not match";
+			 }
+	   	}
+	   	else{
+	   		$response = "You are not a logged in user";
+	   	}
+	}
+	else
+	{
+		$response = "That email is already in use";
+	}
    	echo json_encode($response);
 });
 
@@ -317,6 +313,9 @@ $app->POST('/checkUser', function()
 $app->POST('/changeDiet', function(){
 	global $database;
 	$arr = $_POST['checkbox'];
+	$arr = json_decode($arr);
+
+
 	if (empty($arr)){
 		echo "No Selection";
 	}
@@ -324,6 +323,7 @@ $app->POST('/changeDiet', function(){
 		$id = $_SESSION['uid'];
 		$database->query("DELETE FROM DietaryRestrictions WHERE uid = $id");
 		$n = count($arr);
+
 		for ($i = 0; $i < $n; $i++){
 			$database->query("INSERT into DietaryRestrictions values($id, $arr[$i])");
 		}
@@ -331,45 +331,25 @@ $app->POST('/changeDiet', function(){
 	}
 });
 
-
-$app->POST('/addDiet', function() 
+$app->get('/getDiet', function()
 {
 	global $database;
-
-	//Get User and new diet restriction
-	$dietR = $_POST['allergy'];
 	$id = $_SESSION['uid'];
 
-	//Get key from Dietary Key table
-	$response = $database->query("SELECT * FROM DietaryKey WHERE name = '$dietR'");
-	$response = $response->fetch_assoc;
-	$response = json_encode($response);
+	$result = $database->query("SELECT name, id FROM DietaryRestrictions INNER JOIN DietaryKey ON DietaryRestrictions.restricts = DietaryKey.id WHERE uid = '$id'");
+	if($result)
+   	{
+   		$diet = $result->fetch_all();
+   		echo json_encode($diet);
+   	}
+   	else
+   	{
+   		echo $result;
+   	}
 
-	//Add to DietaryRestriction table
-	$did = $response['id'];
-	$result = $database->query("INSERT INTO DietaryRestriction VALUES('$id', '$did')");
-	echo $result;
 
 });
 
-$app->get('/removeDiet', function() 
-{
-	global $database;
-	
-	//Get User and diet restriction
-	$dietR = $_POST['allergy'];
-	$id = $_SESSION['uid'];
-
-	//Get key from Dietary Key table
-	$response = $database->query("SELECT * FROM DietaryKey WHERE name = '$dietR'");
-	$response = $response->fetch_assoc;
-	$response = json_encode($response);
-
-	//Remove to DietaryRestriction table
-	$did = $response['id'];
-	$result = $database->query("DELETE FROM DietaryRestriction WHERE uid = '$id' AND restricts = '$did'");
-	echo $result;
-});
 
 $app->get('/getUserInfo', function()
 {
@@ -396,19 +376,20 @@ $app->get('/getUserInfo', function()
 
 $app->get('/validateEmail', function()
 {
-	$response = false;
 	$email = $_GET['email'];
 	$result = filter_var($email, FILTER_VALIDATE_EMAIL);
 	if($result == false)
 	{
 		$response = false;
 	}
-	else if($result == $email)
+	else
 	{
 		$response = true;
 	}
 	echo $response;
 });
+
+
 
 // $app->get('/dietaryRestrictions', function()
 // {
