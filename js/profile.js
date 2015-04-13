@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+	
+
+
 	$("#changepassword").click(function() {
 		var oldpass = $("#oldpassword").val();
 		var newpass = $("#newpassword").val();
@@ -8,5 +12,14 @@ $(document).ready(function(){
             console.log(data);
         });
     });
+
+    $.get("api/getUserInfo",function(data){
+			console.log(data);
+			var x = JSON.parse(data);
+			document.getElementById("fname").innerHTML = x.fname;
+			document.getElementById("lname").innerHTML = x.lname;
+			document.getElementById("email").innerHTML = x.email;
+
+		});
 
 });
