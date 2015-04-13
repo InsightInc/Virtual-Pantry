@@ -191,7 +191,7 @@ $app->get('/getRecipes', function()
 // $app->get('/', function()
 {
 	// global $database;
-	// $user_id = $_SESSION['uid'];
+	// $id = $_SESSION['uid'];
 	$query = $_GET['query'];
 	// $query = 'salt, pepper, tilapia';
 	$parse_query = 	explode(", ", $query);
@@ -203,20 +203,16 @@ $app->get('/getRecipes', function()
 		$request_url .= '&allowedIngredient[]='.$parse_query[$x];
 	}
 
-	// $num_rows = $database->query("SELECT COUNT(*) FROM DietaryRestrictions");
-	// if($num_rows > 0)
+	// $num_rows = $database->query("SELECT COUNT(*) FROM DietaryRestrictions WHERE uid = '$id'");
+	// if($num_rows > 0) //check to see if user has dietary restrictions
 	// {
-	// 	$restrictions = $database->query("SELECT restricts FROM DietaryRestrictions WHERE uid = $id"); 
-	// 	$d_array = $restrictions->fetch_assoc();
-	// 	$id_array = array();
-	// 	for($x = 0; $x < count($d_array); $x++)//check to see if user has any dietary restrictions
+	// 	$restrictions_query = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions ON DietaryRestrictions.restricts = DietaryKey.id WHERE uid = '$id'");
+	// 	$restrictions = $restrictions_query->fetch_assoc();
+
+
+	// 	for($y = 0; $y < count($restrictions); $y++)
 	// 	{
-	// 		array_push($id_array, $d_array[$x]); //get all of the dietary restriction codes
-	// 	}
-	// 	$apicode_array = array();
-	// 	for($y = 0; $y < count($d_array); $y++)//check to see if user has any dietary restrictions
-	// 	{
-	// 		array_push($apicode_array, $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = '$id_arrray[$y]'"));
+	// 		$request_url .= '&allowedAllergy[]='.$restrictions[$y];
 	// 	}
 	// }
 
