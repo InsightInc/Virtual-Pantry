@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS SavedRecipes (uid int, rname varchar(100), rlink varc
 										REFERENCES User(uid) ON DELETE CASCADE);
 
 DROP TABLE IF EXISTS DietaryRestrictions;
-CREATE TABLE IF NOT EXISTS DietaryRestrictions (uid int, restricts tinyint, PRIMARY KEY(uid), FOREIGN KEY(uid)
+CREATE TABLE IF NOT EXISTS DietaryRestrictions (uid int, restricts tinyint, PRIMARY KEY(uid, restricts), FOREIGN KEY(uid)
 											   REFERENCES User(uid) ON DELETE CASCADE);
 
 DROP TABLE IF EXISTS DietaryKey;

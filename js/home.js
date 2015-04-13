@@ -10,6 +10,14 @@ $(document).ready(function(){
         }
     });
 
+     $.get("api/getUserInfo",function(data){
+            console.log(data);
+            var x = JSON.parse(data);
+            document.getElementById("uPantry").innerHTML = x.fname + "\'s Pantry";
+            
+
+        });
+
     pantryTable = $("#pantryList").DataTable({
         "scrollY":          "310px",
         "scrollCollapse":   false,
