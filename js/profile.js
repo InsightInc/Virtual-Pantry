@@ -20,6 +20,19 @@ $(document).ready(function(){
         });
     });
     
+    $("#changeDiet").click(function(){
+    	var check = $("#checkbox").val();
+    	var n = check.length;
+    	console.log(n);
+    	for (var i = 0; i < n; i++){
+    		console.log(check[i]);
+    	}
+    	// $.post("api/changeDiet", {checkbox: $("#checkbox").val()}, function(data){
+    	// 	alert(data);
+    	// 	console.log(data);
+    	// });
+
+    });
 
     $.get("api/getUserInfo",function(data){
 			console.log(data);
