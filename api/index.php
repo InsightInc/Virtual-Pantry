@@ -314,6 +314,24 @@ $app->POST('/checkUser', function()
 	echo $response;
 });
 
+$app->POST('/changeDiet', function(){
+	global $database;
+	$arr = $_POST['checkbox'];
+	if (empty($arr)){
+		echo "No Selection";
+	}
+	else{
+		$id = $_SESSION['uid'];
+		$database->query("DELETE FROM DietaryRestrictions WHERE uid = $id");
+		$n = count($arr);
+		for ($i = 0; $i < $n; $i++){
+			$database->query("INSERT into DietaryRestrictions values($id, $arr[$i])");
+		}
+		echo "successfully added/removed restrictions";
+	}
+});
+
+
 $app->POST('/addDiet', function() 
 {
 	global $database;
