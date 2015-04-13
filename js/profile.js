@@ -19,6 +19,7 @@ $(document).ready(function(){
             console.log(data);
         });
     });
+    
 
     $.get("api/getUserInfo",function(data){
 			console.log(data);
