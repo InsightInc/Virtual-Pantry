@@ -32,10 +32,36 @@ $(document).ready(function(){
 		var oldpass = $("#oldpassword").val();
 		var newpass = $("#newpassword").val();
 		var passconfirm = $("#passwordconfirm").val();
-        $.post("api/changePassword",{password: oldpass, newPass: newpass, confirm: passconfirm},function(data) {
-        	alert(data);
-            console.log(data);
+
+        var hasError = false;
+        $("div.form-group1").each(function(index,val) {
+            var formid = "#" + $(this).find("input").attr("id");
+            if($(formid).val() == "") {
+                $(this).find(".errorMsgP").html("This field is required.");
+                if(!$(this).hasClass("has-error"))
+                    $(this).addClass("has-error");
+                hasError = true;
+            }
+            else {
+                $(this).removeClass("has-error");
+                $(this).find(".errorMsgP").empty();
+            }
         });
+        if(newpass != passconfirm) {
+            $("#passMismatch").html("Passwords must match.");
+            $(".passForm").addClass("has-error");
+            hasError = true;
+        }
+        else{
+            $("#passMismatch").empty();
+        }
+
+        if(hasError == false){
+            $.post("api/changePassword",{password: oldpass, newPass: newpass, confirm: passconfirm},function(data) {
+            	alert(data);
+                console.log(data);
+            });
+        }
     });
     
     $("#changeemail").click(function() {
@@ -127,6 +153,7 @@ $(document).ready(function(){
 			document.getElementById("fname").innerHTML = x.fname;
 			document.getElementById("lname").innerHTML = x.lname;
 			document.getElementById("email").innerHTML = x.email;
+            document.getElementById("profile").innerHTML = x.fname + "\'s Profile";
 
 		});
 
