@@ -332,7 +332,9 @@ $app->POST('/changeDiet', function(){
 
 
 	if (empty($arr)){
-		echo "No Selection";
+		$id = $_SESSION['uid'];
+		$database->query("DELETE FROM DietaryRestrictions WHERE uid = $id");
+		echo "Removed all restrictions";
 	}
 	else{
 		$id = $_SESSION['uid'];
@@ -404,7 +406,17 @@ $app->get('/validateEmail', function()
 	echo $response;
 });
 
-
+$app->get('/checkLogIn', function()
+{
+	if( isset( $_SESSION['uid'] ) )
+   	{
+   		echo true;
+   	}
+   	else
+   	{
+   		echo false;
+   	}
+});
 
 // $app->get('/dietaryRestrictions', function()
 // {

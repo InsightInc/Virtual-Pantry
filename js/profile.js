@@ -29,6 +29,7 @@ $(document).ready(function(){
     });
 
     $("#changepassword").click(function() {
+        jQuery.ajaxSetup({async:false});
 		var oldpass = $("#oldpassword").val();
 		var newpass = $("#newpassword").val();
 		var passconfirm = $("#passwordconfirm").val();
@@ -62,6 +63,7 @@ $(document).ready(function(){
                 console.log(data);
             });
         }
+        jQuery.ajaxSetup({async:true});
         location.reload();
     });
     
