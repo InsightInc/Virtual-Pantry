@@ -184,16 +184,16 @@ $app->get('/getPantryList', function()
 	echo $response;
 });
 
-$app->get('/getRecipes', function()
-// $app->get('/', function()
+// $app->get('/getRecipes', function()
+$app->get('/', function()
 {
 
 	global $database;
-	$id = $_SESSION['uid'];
+	// $id = $_SESSION['uid'];
 
-	// $id = 2;
-	$query = $_GET['query'];
-	// $query = 'sugar, bread';
+	$id = 2;
+	// $query = $_GET['query'];
+	$query = 'sugar, bread';
 	$parse_query = 	explode(", ", $query);
 
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
@@ -203,11 +203,15 @@ $app->get('/getRecipes', function()
 		$request_url .= '&allowedIngredient[]='.$parse_query[$x];
 	}
 
+
 	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'")->fetch_assoc(); //get Dietary Restrictions List
-	$dietary_keys = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = DietaryRestrictions.restricts")->fetch_assoc(); //get all associated Keys
-	for($x = 0; $x < count($dietary_keys); $x++)
+	$count = ($database->query("SELECT COUNT(*) as numRestrictions FROM DietaryRestrictions WHERE UID = '$id'")->fetch_assoc());
+	$numRows = intval($count['numRestrictions']);
+	if($numRows > 0)
 	{
-		$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
+			$dietary_keys = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = DietaryRestrictions.restricts")->fetch_assoc(); //get all associated Keys
+			for($x = 0; $x < count($dietary_keys); $x++)
+				$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
 	}
 
 	$jresponse = file_get_contents($request_url);
@@ -283,11 +287,9 @@ $app -> POST('/register', function() use ($database){
 });
 
 $app->get('/getProductInfo', function() 
-// $app->get('/', function() 
 {
 	global $database;
 	$productname = $_GET['name'];
-	// $productname = 'bacon';
 
 	//Get item info based off its name
 	$result = $database->query("SELECT * FROM Ingredient WHERE pname = '$productname'");
