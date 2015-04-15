@@ -40,8 +40,11 @@ $(document).ready(function(){
             var dataArr = JSON.parse(data);
             console.log(data);
 	    $("#recipeLoadIndic").hide();
-            $.each(dataArr,function(key, value) {
-                recipeTable.row.add([key.link(value)]);
+            $.each(dataArr,function(index, value1) {
+                var img = '<img src=\"' + value1[1] + '\">';
+                $.each(value1[0], function(key, value) {
+                    recipeTable.row.add([img, key.link(value)]);
+                });
             });
             recipeTable.draw();
         });

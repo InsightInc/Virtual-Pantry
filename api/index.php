@@ -81,6 +81,7 @@ $app->get('/addProduct', function() {
 
     echo $response;
 });
+
 $app->POST('/changePassword', function(){
 	global $database;
 	$oldpass = $_POST['password'];
@@ -186,10 +187,14 @@ $app->get('/getPantryList', function()
 $app->get('/getRecipes', function()
 // $app->get('/', function()
 {
-	// global $database;
-	// $id = $_SESSION['uid'];
+
+	global $database;
+	$id = $_SESSION['uid'];
+
+	// $id = 2;
+
 	$query = $_GET['query'];
-	// $query = 'salt, pepper, tilapia';
+	// $query = 'sugar, bread';
 	$parse_query = 	explode(", ", $query);
 
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
@@ -213,16 +218,34 @@ $app->get('/getRecipes', function()
 	// }
 
 
+	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'")->fetch_assoc(); //get Dietary Restrictions List
+	$count = ($database->query("SELECT COUNT(*) as numRestrictions FROM DietaryRestrictions WHERE UID = '$id'")->fetch_assoc());
+	$numRows = intval($count['numRestrictions']);
+	if($numRows > 0)
+	{
+			$dietary_keys = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = DietaryRestrictions.restricts")->fetch_assoc(); //get all associated Keys
+			for($x = 0; $x < count($dietary_keys); $x++)
+				$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
+	}
+
 	$jresponse = file_get_contents($request_url);
 	$recipe_list = json_decode($jresponse);
 
 	$array_recipes = array();
+
 	for($x = 0; $x < count($recipe_list->matches); $x++)
 	{
+		$sub_array = array();
+		$picutres = array();
+		$array_recipes[$x] = array();
 		$url = json_decode(file_get_contents('http://api.yummly.com/v1/api/recipe/'.$recipe_list->matches[$x]->id.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e'));
 		$url = preg_replace('~(^|[^:])//+~', '\\1/',$url->source->sourceRecipeUrl);
-		// $url = rawurlencode($url->source->sourceRecipeUrl)
-		$array_recipes[$recipe_list->matches[$x]->recipeName] = $url;
+		$sub_array[$recipe_list->matches[$x]->recipeName] = $url;
+		$pictures[$x] = $recipe_list->matches[$x]->smallImageUrls[0];
+		array_push($array_recipes[$x], $sub_array); 
+		array_push($array_recipes[$x], $pictures[$x]); 
+		unset($sub_array);
+		unset($pictures);
 	}
 
 	$recipe_array = json_encode($array_recipes);
@@ -417,21 +440,6 @@ $app->get('/checkLogIn', function()
    		echo false;
    	}
 });
-
-// $app->get('/dietaryRestrictions', function()
-// {
-// 	$dietary_restrictions = file_get_contents('http://api.yummly.com/v1/api/metadata/allergy?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e');
-// 	$dietary_restrictions = substr($dietary_restrictions, 23, -2);
-// 	$dietary_restrictions = json_decode($dietary_restrictions);
-// 	$allergy_array = array();
-// 	for($x = 0; $x < count($dietary_restrictions); $x++)
-// 	{
-// 		if($dietary_restrictions[$x]->shortDescription != "Sulfite-Free")
-// 			$allergy_array[$dietary_restrictions[$x]->shortDescription] = $dietary_restrictions[$x]->id; 
-// 	}
-// 	echo json_encode($allergy_array);
-
-// });
 
 
 $app->run();
