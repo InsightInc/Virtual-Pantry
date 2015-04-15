@@ -184,17 +184,17 @@ $app->get('/getPantryList', function()
 	echo $response;
 });
 
-// $app->get('/getRecipes', function()
-$app->get('/', function()
+$app->get('/getRecipes', function()
+// $app->get('/', function()
 {
 
 	global $database;
-	// $id = $_SESSION['uid'];
+	$id = $_SESSION['uid'];
 
-	$id = 2;
+	// $id = 2;
 
-	// $query = $_GET['query'];
-	$query = 'sugar, bread';
+	$query = $_GET['query'];
+	// $query = 'sugar, bread';
 	$parse_query = 	explode(", ", $query);
 
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
