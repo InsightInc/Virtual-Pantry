@@ -19,7 +19,7 @@ $(document).ready(function(){
         });
 
     pantryTable = $("#pantryList").DataTable({
-        "scrollY":          "310px",
+        "scrollY":          "273px",
         "scrollCollapse":   false,
         "paging":           false
     });
@@ -62,7 +62,7 @@ $(document).ready(function(){
     });
 
     recipeTable = $("#recipesTable").DataTable({
-        "scrollY":          "200px",
+        "scrollY":          "240px",
         "scrollCollapse":   false,
         "paging":           false,
 	    "dom":		        "ti",
@@ -127,5 +127,11 @@ $(document).ready(function(){
         }
     });
 
+    //initialize tabs
+    $("#pantryTabs a").click(function(e){
+        e.preventDefault();
+        $(this).tab('show');
+        recipeTable.columns.adjust().draw();
+    });
 });
 
