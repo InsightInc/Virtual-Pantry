@@ -37,6 +37,12 @@
     src: url("../fonts/CaviarDreams.ttf");
 }
 
+@font-face {
+    font-family: ourFont;
+    src: url("../fonts/CaviarDreams_Bold.ttf");
+    font-weight: bold;
+}
+
 .indexLogo {
   max-height: 10%;
   max-width: 100%;
@@ -57,7 +63,7 @@
 div.jumbotron {
   /*opacity: 0.4;
   filter: alpha(opacity=40);  For IE8 and earlier */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: ourFont;
   font-size: 14px;
   line-height: 1.428571429;
   color: #a86d26;
@@ -339,7 +345,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: ourFont;
   font-size: 14px;
   line-height: 1.428571429;
   color: #ffffff;
