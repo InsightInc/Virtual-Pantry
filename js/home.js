@@ -23,6 +23,11 @@ $(document).ready(function(){
         "scrollCollapse":   false,
         "paging":           false
     });
+
+    $("#newProductName").keyup(function(event) {
+    if(event.keyCode == 13)
+        $("#submitNewProduct").click();
+    });
     
     $("#submitNewProduct").click(function() {
         var product = $("#newProductName").val();
