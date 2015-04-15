@@ -19,10 +19,9 @@
         <!--specifically for this page-->
         <script src="js/home.js"></script>
 
-        <!--because I changed the profile page into a little div-->
-        <script src="js/profile.js"></script>
+
 	</head>
-	<body>
+	<body id="homeBody">
 		<nav class="navbar navbar-default">
 		  <div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -109,8 +108,9 @@
 			                <button id="submitNewProduct" class="btn btn-primary">Submit</button>
 			            </div>
 			            <div role="tabpanel" class="tab-pane" id="profile">
-			            	<h3 id="profile">Your Profile</h3>
+			            	<h3 id="profile1">Your Profile</h3>
 	            			<h4>My Allergies</h4>
+	            			<ul id="alist"></ul>
 	            			<button id="change" class="btn btn-primary" data-toggle="modal" data-target="#allergies">Add/Remove Allergies</button>
 	            			<hr />
 	            			<h4>Account Information</h4>
@@ -272,4 +272,6 @@
       </div>
     </div>
     </div>
+            <!--because I changed the profile page into a little div-->
+        <script src="js/profile.js"></script>
 </html>
