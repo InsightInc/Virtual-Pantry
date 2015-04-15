@@ -133,5 +133,7 @@ $(document).ready(function(){
         $(this).tab('show');
         recipeTable.columns.adjust().draw();
     });
+
+    
 });
 

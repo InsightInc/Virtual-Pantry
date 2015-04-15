@@ -159,7 +159,7 @@ $(document).ready(function(){
 			document.getElementById("fname").innerHTML = x.fname;
 			document.getElementById("lname").innerHTML = x.lname;
 			document.getElementById("email").innerHTML = x.email;
-            document.getElementById("profile").innerHTML = x.fname + "\'s Profile";
+            document.getElementById("profile1").innerHTML = x.fname + "\'s Profile";
 
 		});
 
@@ -178,4 +178,3 @@ $(document).ready(function(){
 
 });
 
-});
