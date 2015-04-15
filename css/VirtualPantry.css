@@ -27,9 +27,14 @@
 #homeBody {
 
   background-image: url("../images/homeBackground.jpg");
-  background-size: 100%
+  background-size: 100%;
   background-size: 100%;
 
+}
+
+@font-face {
+    font-family: ourFont;
+    src: url("../fonts/CaviarDreams.ttf");
 }
 
 .indexLogo {
@@ -37,7 +42,7 @@
   max-width: 100%;
   padding: 0px;
   color: #ffffff;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: ourFont;
   font-size: 80px;
 }
 
