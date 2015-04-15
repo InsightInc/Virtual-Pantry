@@ -48,6 +48,7 @@ $(document).ready(function(){
             $.each(dataArr,function(index, value1) {
                 var img = '<img src=\"' + value1[1] + '\">';
                 $.each(value1[0], function(key, value) {
+                    console.log('key ' + key + ' value ' + value);
                     recipeTable.row.add([img, key.link(value)]);
                 });
             });
@@ -64,7 +65,9 @@ $(document).ready(function(){
         "scrollY":          "200px",
         "scrollCollapse":   false,
         "paging":           false,
-	"dom":		    "ti"
+	    "dom":		        "ti",
+        "columns":          [{"orderable": false}, null],
+        "order":            [[1, "asc"]]
     });
 
     $("#submitLogout").click(function() {
