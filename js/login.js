@@ -10,6 +10,11 @@ $(document).ready(function(){
 
     });
 
+    $("#password").keyup(function(event) {
+    if(event.keyCode == 13)
+        $("#submitLogin").click();
+    });
+
 	$("#submitLogin").click(function() {
         $.post("api/login",{email: $("#email").val(), password: $("#password").val()},function(data) {
         	var status = JSON.parse(data);
