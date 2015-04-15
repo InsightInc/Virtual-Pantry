@@ -1,12 +1,13 @@
 .indexBox {
   background-color: rgba(60,60,60,0.6);
   padding-top:10px;
+  padding-bottom: 10px;
   width: 25%;
   margin-right: auto;
   margin-left: 10%;
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 15%;
+  margin-top: 10%;
 }
 
 #loginData {
@@ -19,6 +20,7 @@
 #indexBody {
 
   background-image: url("../images/loginBackground.jpg");
+<<<<<<< HEAD
   background-size: 100%
 
 }
@@ -27,6 +29,24 @@
 
   background-image: url("../images/homeBackground.jpg");
   background-size: 100%
+=======
+  background-size: 100%;
+
+}
+
+.indexLogo {
+  max-height: 10%;
+  max-width: 100%;
+  padding: 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 80px;
+}
+
+#homeBody {
+
+  background-image: url("../images/homeBackground.jpg");
+  background-size: 100%;
+>>>>>>> 705e98967ab923d24359f99029aedb02f25bc3a9
 
 }
 
