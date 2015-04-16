@@ -1676,6 +1676,16 @@ textarea.form-control {
   color: #ffffff;
   margin-bottom: 15px;
 }
+#emailTag {
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+#passTag {
+  color:#ffffff;
+  margin-bottom: 15px;
+}
+
 .form-group {
   color: #000000;
   margin-bottom: 15px;
