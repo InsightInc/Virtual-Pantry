@@ -20,7 +20,8 @@
 #indexBody {
 
   background-image: url("../images/loginBackground.jpg");
-  background-size: 100%
+  background-size: 100%;
+  background-repeat: no-repeat;
 
 }
 
@@ -28,7 +29,7 @@
 
   background-image: url("../images/homeBackground.jpg");
   background-size: 100%;
-  background-size: 100%;
+  background-repeat: no-repeat;
 
 }
 
