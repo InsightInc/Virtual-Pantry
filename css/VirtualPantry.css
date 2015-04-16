@@ -317,6 +317,7 @@ table {
   .table td,
   .table th {
     background-color: #fff !important;
+    /*color: #000000;*/
   }
   .btn > .caret,
   .dropup > .btn > .caret {
@@ -1434,7 +1435,7 @@ th {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: #f5f5f5;
+  /*background-color: #f5f5f5;*/
 }
 table col[class*="col-"] {
   float: none;
@@ -1671,7 +1672,12 @@ fieldset[disabled] .form-control {
 textarea.form-control {
   height: auto;
 }
+#idk {
+  color: #ffffff;
+  margin-bottom: 15px;
+}
 .form-group {
+  color: #000000;
   margin-bottom: 15px;
 }
 .radio,
@@ -1983,7 +1989,7 @@ fieldset[disabled] .btn-default.active {
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
   /*background-color: #9c7d41;*/
-  9c7d41border-color: #7b6333;
+  /*9c7d41border-color: #7b6333;*/
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -5000,10 +5006,12 @@ body.modal-open,
   margin-top: -2px;
 }
 .modal-title {
+  color: #000000;
   margin: 0;
   line-height: 1.428571429;
 }
 .modal-body {
+  color: #000000;
   position: relative;
   padding: 20px;
 }
