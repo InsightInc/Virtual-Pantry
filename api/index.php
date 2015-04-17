@@ -155,6 +155,7 @@ $app->get('/removeProduct', function()
 {
 	global $database;
 	$name = $_GET['name'];
+	$name = addslashes($name);
 
 	//Get User
 	if( isset( $_SESSION['uid'] ) )
@@ -306,6 +307,7 @@ $app->get('/getProductInfo', function()
 {
 	global $database;
 	$productname = $_GET['name'];
+	$productname = addslashes($productname);
 
 	//Get item info based off its name
 	$result = $database->query("SELECT * FROM Ingredient WHERE pname = '$productname'");
@@ -443,6 +445,125 @@ $app->get('/checkLogIn', function()
    	}
 });
 
+$app->get('/getProductSearch', function() {
+//$app->get('/', function() {
+	global $database;
+	$name = $_GET['name'];
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+   	}
+
+	#Connect to foodessentials api ------------------------------------------------
+	#Get session id
+	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
+	$sobj = json_decode($sjson);
+	$sid = $sobj->session_id;
+	#Create Profile, so information is outputted correctly
+	$profjson = file_get_contents("./profile.json");
+	$profjson = json_decode($profjson);
+	$profjson[0]['session_id'] = $sid;
+	
+	#Set Profile
+	$options = array(
+	  'http' => array(
+	    'method'  => 'POST',
+	    'content' => json_encode($profjson),
+	    'header'=>  "Content-Type: application/json\r\n" .
+	                "Accept: application/json\r\n"
+	    )
+	);
+	$context  = stream_context_create( $options );
+	$result = file_get_contents('http://api.foodessentials.com/setprofile?api_key=x4c59ktead886t2urzcdju54', false, $context );
+	$response = json_decode( $result );
+
+	$results = array();
+	//search for product and get UPC code
+	$name = str_replace(' ', '+', $name);
+    $pjson = file_get_contents('http://api.foodessentials.com/searchprods?q='.$name.'&sid='.$sid.'&n=5&s=1&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
+    $productList = json_decode($pjson);
+    for($x = 0; $x < 5; $x++)
+    {
+    	$results[$x] = $productList->productsArray[$x];
+    }
+
+    echo json_encode($results);
+
+});
+
+$app->get('/addProductSearch', function() {
+	global $database;
+	$upc = $_GET['upc'];
+	$name = $_GET['name'];
+	$name = addslashes($name);
+
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+   	}
+
+   	#Connect to foodessentials api ------------------------------------------------
+	#Get session id
+	$sjson = file_get_contents('http://api.foodessentials.com/createsession?uid=ert&devid=ert&appid=ert&f=json&v=2.00&api_key=x4c59ktead886t2urzcdju54');
+	$sobj = json_decode($sjson);
+	$sid = $sobj->session_id;
+	#Create Profile, so information is outputted correctly
+	$profjson = file_get_contents("./profile.json");
+	$profjson = json_decode($profjson);
+	$profjson[0]['session_id'] = $sid;
+	
+	#Set Profile
+	$options = array(
+	  'http' => array(
+	    'method'  => 'POST',
+	    'content' => json_encode($profjson),
+	    'header'=>  "Content-Type: application/json\r\n" .
+	                "Accept: application/json\r\n"
+	    )
+	);
+	$context  = stream_context_create( $options );
+	$result = file_get_contents('http://api.foodessentials.com/setprofile?api_key=x4c59ktead886t2urzcdju54', false, $context );
+	$response = json_decode( $result );
+
+
+    //Get info for product using the upc code
+    $product = file_get_contents('http://api.foodessentials.com/productscore?u='.$upc.'&sid='.$sid.'&f=json&api_key=x4c59ktead886t2urzcdju54');
+    $product = json_decode($product);
+
+    //Put product info into json array for the response
+    $jsonProduct = array();
+    $jsonProduct['fat'] = $product->product->nutrients[6]->nutrient_value;
+	$jsonProduct['chol'] = $product->product->nutrients[1]->nutrient_value;
+	$jsonProduct['sodium'] = $product->product->nutrients[3]->nutrient_value;
+	$jsonProduct['carb'] = $product->product->nutrients[5]->nutrient_value;
+	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_value;
+	$jsonProduct['barcode'] = $upc;
+	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;
+	$jsonProduct['name'] = $product->product->product_name;
+	$jsonProduct['manuf'] = $product->product->manufacturer;
+
+	//Put product info into varibles for the database insertions 
+	$fat = $jsonProduct['fat'];
+	$chol = $jsonProduct['chol'];
+	$sodium = $jsonProduct['sodium'];
+	$carb = $jsonProduct['carb'];
+	$protien = $jsonProduct['protien'];
+	$barcode = $jsonProduct['barcode'];
+	$cal = $jsonProduct['cal'];
+	$pname = $jsonProduct['name'];
+	$manuf = $jsonProduct['manuf'];
+
+
+	//Insert product into PantryList table for user
+	$response = $database->query("INSERT INTO PantryList (uid, pname, barcode) VALUES ('$id', '$name', '$upc')");
+
+
+	//Insert product into Ingredient table
+	$database->query("INSERT INTO Ingredient VALUES('$upc', '$fat', '$chol', '$sodium', '$carb', '$protien', NULL, NULL, '$cal', NULL, '$name', '$manuf')");
+
+    echo $response;
+
+});
 
 $app->run();
 ?>
