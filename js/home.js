@@ -19,7 +19,7 @@ $(document).ready(function(){
         });
 
     pantryTable = $("#pantryList").DataTable({
-        "scrollY":          "273px",
+        "scrollY":          "300px",
         "scrollCollapse":   false,
         "paging":           false
     });
@@ -29,12 +29,48 @@ $(document).ready(function(){
         $("#submitNewProduct").click();
     });
     
-    $("#submitNewProduct").click(function() {
+    /*$("#submitNewProduct").click(function() {
         var product = $("#newProductName").val();
         $.get("api/addProduct",{name: product},function(data) {
             console.log(data);
         });
         location.reload();
+    });*/
+
+    $("#submitNewProduct").click(function() {
+        var product = $("#newProductName").val();
+        var products;
+        jQuery.ajaxSetup({async:false});
+        $.get("api/getProductSearch",{name: product},function(data) {
+            console.log(data);
+            products = JSON.parse(data);
+            console.log(products);
+
+        });
+        jQuery.ajaxSetup({async:true});
+
+        $("label[for='product0']").text(products[0].product_name + ', ' + products[0].product_size);
+        $("#product0").val(products[0].upc);
+        $("label[for='product1']").text(products[1].product_name + ', ' + products[1].product_size);
+        $("#product1").val(products[1].upc);
+        $("label[for='product2']").text(products[2].product_name + ', ' + products[2].product_size);
+        $("#product2").val(products[2].upc);
+        $("label[for='product3']").text(products[3].product_name + ', ' + products[3].product_size);
+        $("#product3").val(products[3].upc);
+        $("label[for='product4']").text(products[4].product_name + ', ' + products[4].product_size);
+        $("#product4").val(products[4].upc);
+
+    });
+
+    $("#addProductSearch").click(function(){
+        var input = $("input[type='radio'][name='product']:checked");
+        var upcCode = input.val();
+        var n = $('label[for="'+input.attr('id')+'"]').text();
+        $.get("api/addProductSearch",{upc: upcCode, name: n},function(data) {
+            console.log(data);
+        });   
+        location.reload();
+
     });
 
 

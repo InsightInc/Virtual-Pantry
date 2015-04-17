@@ -95,13 +95,13 @@
 				<div class="well"  style="height:500px">
 					<ul class="nav nav-tabs" role="tablist" id="pantryTabs">
 						<li role="presentation" class="active" style="width:33%">
-							<a href="#pantry" aria-controls="pantry" role="tab" data-toggle="tab">Pantry</a>
+							<a href="#pantry" aria-controls="pantry" role="tab" data-toggle="tab"><h3 style="margin-top:0px;margin-bottom:0px">Pantry</h3></a>
 						</li>
 						<li role="presentation" style="width:33%">
-							<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+							<a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><h3 style="margin-top:0px;margin-bottom:0px">Profile</h3></a>
 						</li>
 						<li role="presentation" style="width:34%">
-							<a href="#search" aria-controls="search" role="tab" data-toggle="tab">Search</a>
+							<a href="#search" aria-controls="search" role="tab" data-toggle="tab"><h3 style="margin-top:0px;margin-bottom:0px">Search</h3></a>
 						</li>
 					</ul>
 					<div class="tab-content">
@@ -111,7 +111,7 @@
 			                    <label for="newProductName" id="idk">Name</label>
 			                    <input type="text" class="form-control" id="newProductName" name="newProductName" />
 			                </div>
-			                <button id="submitNewProduct" class="btn btn-primary">Submit</button>
+			                <button id="submitNewProduct" class="btn btn-primary" data-toggle="modal" data-target="#products">Submit</button>
 			            </div>
 			            <div role="tabpanel" class="tab-pane" id="profile">
 			            	<h3 id="profile1">Your Profile</h3>
@@ -133,7 +133,7 @@
 			            	<h3>Search for a Recipe by Ingredient</h3>
 	                		<div class="form-group form-inline">
 	                    		<input type="text" class="form-control" placeholder="Ingredient Name" id="ingredientName" name="ingredientName" />
-			    				<button id="searchForRecipe" class="btn btn-primary">Search</button>
+			    				<button id="searchForRecipe" class="btn btn-primary" style="margin-bottom:5px">Search</button>
 			    				<span id="recipeLoadIndic" style="display:none"><img src="images/ajax-loader-2.gif" /></span>
 	                		</div>
 			                <table id="recipesTable" class="display">
@@ -152,7 +152,7 @@
 			</div>
 			<div class="col-md-4" id="pantryDiv">
 				<div class="well" style="height:500px">
-	                <h2 id="uPantry">Your Pantry</h2>
+	                <h2 id="uPantry" style="margin-top:10px;margin-bottom:20px">Your Pantry</h2>
 					<table id="pantryList" class="display">
 						<thead>
 							<tr>
@@ -280,6 +280,35 @@
       </div>
     </div>
     </div>
+
+    <div class="modal fade" id="products" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Select Your Product</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group productForm">
+              <input type="radio" id="product0" name="product"><label for="product0" style="margin-left: 7px;"> </label><br>
+              <input type="radio" id="product1" name="product"><label for="product1" style="margin-left: 7px;"> </label><br>
+              <input type="radio" id="product2" name="product"><label for="product2" style="margin-left: 7px;"> </label><br>
+              <input type="radio" id="product3" name="product"><label for="product3" style="margin-left: 7px;"> </label><br>
+              <input type="radio" id="product4" name="product"><label for="product4" style="margin-left: 7px;"> </label><br>
+            </div>
+
+            <p>NOTE: In rare cases, some products may appear twice. They are the same product but one UPC code is newer than the other and the old code has not yet been taken off the market. This will not affect your nutrional data.</p>
+          </div>
+            
+          <div class="modal-footer">
+            <button id="addProductSearch" class="btn btn-primary" data-dismiss="modal">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
             <!--because I changed the profile page into a little div-->
         <script src="js/profile.js"></script>
 
