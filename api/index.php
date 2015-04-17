@@ -61,6 +61,7 @@ $app->get('/addProduct', function() {
 	$jsonProduct['name'] = $product->product->product_name;
 	$jsonProduct['manuf'] = $product->product->manufacturer;
 
+
 	//Put product info into varibles for the database insertions 
 	$fat = $jsonProduct['fat'];
 	$chol = $jsonProduct['chol'];
@@ -205,20 +206,6 @@ $app->get('/getRecipes', function()
 		$request_url .= '&allowedIngredient[]='.$parse_query[$x];
 	}
 
-	// $num_rows = $database->query("SELECT COUNT(*) FROM DietaryRestrictions WHERE uid = '$id'");
-	// if($num_rows > 0) //check to see if user has dietary restrictions
-	// {
-	// 	$restrictions_query = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions ON DietaryRestrictions.restricts = DietaryKey.id WHERE uid = '$id'");
-	// 	$restrictions = $restrictions_query->fetch_assoc();
-
-
-	// 	for($y = 0; $y < count($restrictions); $y++)
-	// 	{
-	// 		$request_url .= '&allowedAllergy[]='.$restrictions[$y];
-	// 	}
-	// }
-
-
 	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'");
 	if($user_restrictions)
 		$user_restrictions = $user_restrictions->fetch_assoc(); //get Dietary Restrictions List		
@@ -230,6 +217,7 @@ $app->get('/getRecipes', function()
 			for($x = 0; $x < count($dietary_keys); $x++)
 				$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
 		}
+	$request_url .= '&maxResult=25&start=0';
 
 	$jresponse = file_get_contents($request_url);
 	$recipe_list = json_decode($jresponse);
@@ -445,6 +433,7 @@ $app->get('/checkLogIn', function()
    	}
 });
 
+
 $app->get('/getProductSearch', function() {
 //$app->get('/', function() {
 	global $database;
@@ -564,6 +553,91 @@ $app->get('/addProductSearch', function() {
     echo $response;
 
 });
+
+// $app->get('/', function()
+$app->get('/advancedSearch', function()
+{
+	global $database;
+	$id = $_SESSION['uid'];
+
+	// $id = 2;
+
+	// $product_names = "sugar, butter, milk";
+	// $max_cal = 100;
+	// $min_protein = 20;
+	// $max_protein = 50;
+
+	$product_names = $_GET['names'];
+	$max_cal = $_GET['maxCal'];
+	$min_protein = $_GET['minProtein'];
+	$max_protein = $_GET['maxProtein'];
+
+	// $parse_query = 	explode(", ", $advancedQuery); 
+	$product_names = explode(", ", $product_names);
+
+	$max_cal = intval($max_cal);
+	$min_protein = intval($min_protein);
+	$max_protein = intval($max_protein);
+
+	// $values = array('max_cal' => $nutrition_values[0], 'min_protein' => $nutrition_values[1], 'max_protein' => $nutrition_values[2]);
+
+	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
+
+
+	for($x = 0; $x < count($product_names); $x++)			
+	{
+		$request_url .= '&allowedIngredient[]='.$product_names[$x];
+	}
+
+	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'");
+	if($user_restrictions)
+	{
+		$user_restrictions = $user_restrictions->fetch_assoc(); //get Dietary Restrictions List		
+		$count = ($database->query("SELECT COUNT(*) as numRestrictions FROM DietaryRestrictions WHERE UID = '$id'")->fetch_assoc());
+		$numRows = intval($count['numRestrictions']);
+		if($numRows > 0)
+		{
+			$dietary_keys = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions WHERE DietaryKey.id = DietaryRestrictions.restricts")->fetch_assoc(); //get all associated Keys
+			for($x = 0; $x < count($dietary_keys); $x++)
+				$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
+		}
+	}
+	// if(isset($max_cal))
+	// 	$request_url .= '&nutrition.PROCNT.max='.$max_cal;
+	if(isset($min_protein))
+		$request_url .= '&nutrition.PROCNT.min='.$min_protein;
+	if(isset($max_protein))
+		$request_url .= '&nutrition.PROCNT.max='.$max_protein;
+	// (NA, CHOLE, CHOCDF, PROCNT, FAT) Sodium, cholesterol, carbs, protein, fat 
+
+	$request_url .= '&maxResult=25&start=0'; //gets top 25 items.
+
+
+	$jresponse = file_get_contents($request_url);
+	$recipe_list = json_decode($jresponse);
+
+	$array_recipes = array();
+
+	for($x = 0; $x < count($recipe_list->matches); $x++)
+	{
+		$sub_array = array();
+		$picutres = array();
+		$array_recipes[$x] = array();
+		$url = json_decode(file_get_contents('http://api.yummly.com/v1/api/recipe/'.$recipe_list->matches[$x]->id.'?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e'));
+		$url = preg_replace('~(^|[^:])//+~', '\\1/',$url->source->sourceRecipeUrl);
+		$sub_array[$recipe_list->matches[$x]->recipeName] = $url;
+		$pictures[$x] = $recipe_list->matches[$x]->smallImageUrls[0];
+		array_push($array_recipes[$x], $sub_array); 
+		array_push($array_recipes[$x], $pictures[$x]); 
+		unset($sub_array);
+		unset($pictures);
+	}
+
+	$recipe_array = json_encode($array_recipes);
+	echo $recipe_array;
+});
+
+
 
 $app->run();
 ?>
