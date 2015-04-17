@@ -205,20 +205,6 @@ $app->get('/getRecipes', function()
 		$request_url .= '&allowedIngredient[]='.$parse_query[$x];
 	}
 
-	// $num_rows = $database->query("SELECT COUNT(*) FROM DietaryRestrictions WHERE uid = '$id'");
-	// if($num_rows > 0) //check to see if user has dietary restrictions
-	// {
-	// 	$restrictions_query = $database->query("SELECT apicode FROM DietaryKey NATURAL JOIN DietaryRestrictions ON DietaryRestrictions.restricts = DietaryKey.id WHERE uid = '$id'");
-	// 	$restrictions = $restrictions_query->fetch_assoc();
-
-
-	// 	for($y = 0; $y < count($restrictions); $y++)
-	// 	{
-	// 		$request_url .= '&allowedAllergy[]='.$restrictions[$y];
-	// 	}
-	// }
-
-
 	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'");
 	if($user_restrictions)
 		$user_restrictions = $user_restrictions->fetch_assoc(); //get Dietary Restrictions List		
