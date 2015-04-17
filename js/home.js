@@ -68,8 +68,15 @@ $(document).ready(function(){
         var n = $('label[for="'+input.attr('id')+'"]').text();
         $.get("api/addProductSearch",{upc: upcCode, name: n},function(data) {
             console.log(data);
+            if(data == true)
+            {
+                pantryTable.row.add([n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                pantryTable.draw();
+            }
+
+
         });   
-        location.reload();
+        
 
     });
 
