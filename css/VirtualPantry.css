@@ -217,7 +217,7 @@ select,
 textarea {
   font-family: inherit;
   font-size: 100%;
-  margin: 0;
+  margin-bottom: 5px;
 }
 button,
 input {
@@ -1692,7 +1692,7 @@ textarea.form-control {
 }
 
 .form-group {
-  color: #000000;
+  color: #ffffff;
   margin-bottom: 15px;
 }
 .radio,
@@ -4898,7 +4898,7 @@ a.list-group-item:focus {
 }
 .well {
   min-height: 20px;
-  padding: 19px;
+  padding: 10px;
   margin-bottom: 20px;
   background-color: #0000ffff;
   border: 1px solid #e3e3e3;

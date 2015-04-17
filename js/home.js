@@ -19,7 +19,7 @@ $(document).ready(function(){
         });
 
     pantryTable = $("#pantryList").DataTable({
-        "scrollY":          "273px",
+        "scrollY":          "300px",
         "scrollCollapse":   false,
         "paging":           false
     });
