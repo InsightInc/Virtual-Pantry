@@ -4898,6 +4898,7 @@ a.list-group-item:focus {
 }
 .well {
   min-height: 20px;
+  min-width: 250px;
   padding: 10px;
   margin-bottom: 20px;
   background-color: #0000ffff;
