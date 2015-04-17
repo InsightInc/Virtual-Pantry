@@ -433,7 +433,7 @@ $app->get('/checkLogIn', function()
    	}
 });
 
-<<<<<<< HEAD
+
 $app->get('/getProductSearch', function() {
 //$app->get('/', function() {
 	global $database;
@@ -553,7 +553,7 @@ $app->get('/addProductSearch', function() {
     echo $response;
 
 });
-=======
+
 // $app->get('/', function()
 $app->get('/advancedSearch', function()
 {
@@ -637,7 +637,7 @@ $app->get('/advancedSearch', function()
 	echo $recipe_array;
 });
 
->>>>>>> 3a2c1b4
+
 
 $app->run();
 ?>
