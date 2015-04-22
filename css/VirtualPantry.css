@@ -33,6 +33,10 @@
 
 }
 
+#form-group {
+  color: #000000;
+}
+
 @font-face {
     font-family: ourFont;
     src: url("../fonts/CaviarDreams.ttf");
@@ -5030,6 +5034,10 @@ body.modal-open,
   color: #000000;
   position: relative;
   padding: 20px;
+}
+
+/*#0{*/
+  color: #000000;
 }
 .modal-footer {
   margin-top: 15px;
