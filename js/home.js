@@ -120,9 +120,9 @@ $("#submitNewProduct").click(function() {
 
 
     $("#ingredientName").keyup(function(event) {
-       if(event.keyCode == 13)
-           $("#searchForRecipe").click();
-   });
+     if(event.keyCode == 13)
+         $("#searchForRecipe").click();
+ });
 
     //recipeTable
     recipeTable = $("#recipesTable").DataTable({
@@ -211,6 +211,26 @@ $("#submitNewProduct").click(function() {
         $(this).tab('show');
         recipeTable.columns.adjust().draw();
     });
-    
+
+    //Filter Search
+    $("#filterRecipeSearch").click(function() {
+        recipeTable.clear();
+        $("#frecipeLoadIndic").show();
+        $.get("api/advancedSearch", {names: $("#ingredient").val(), maxCal: $("#calories").val(), maxProtein: $("#maxProtein").val(), minProtein: $("#minProtein").val()}, function(data) {
+            var dataArr = JSON.parse(data);
+            console.log(data);
+            $("#frecipeLoadIndic").hide();
+            $.each(dataArr,function(index, value1) {
+                var img = '<img src=\"' + value1[1] + '\">';
+                $.each(value1[0], function(key, value) {
+                    console.log('key ' + key + ' value ' + value);
+                    recipeTable.row.add([img, key.link(value)]);
+                });
+            });
+            recipeTable.draw();
+        });
+
+    });
+
 });
 
