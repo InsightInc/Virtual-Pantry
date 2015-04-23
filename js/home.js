@@ -165,7 +165,10 @@ $("#submitNewProduct").click(function() {
         "paging":           false,
         "dom":		        "ti",
         "columns":          [{"orderable": false}, null],
-        "order":            [[1, "asc"]]
+        "order":            [[1, "asc"]],
+        "language": {
+            "emptyTable": "No recipes found"
+        }
     });
 
     //logout
