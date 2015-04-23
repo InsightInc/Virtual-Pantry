@@ -637,7 +637,31 @@ $app->get('/advancedSearch', function()
 	echo $recipe_array;
 });
 
+$app->POST('/createItem', function()
+{
+	global $database;
+	$id = $_SESSION['uid'];
 
+	$name = $_POST['name'];
+	$fat = $_POST['fat'];
+	$chol = $_POST['chol'];
+	$sodium = $_POST['sodium'];
+	$carb = $_POST['carb'];
+	$protien = $_POST['protien'];
+	$calories = $_POST['calories'];
+	$brand = $_POST['brand'];
+
+	//Insert product into PantryList table for user
+	$response = $database->query("INSERT INTO PantryList (uid, pname) VALUES ('$id', '$name')");
+
+
+	//Insert product into Ingredient table
+	$database->query("INSERT INTO Ingredient VALUES('$name', '$fat', '$chol', '$sodium', '$carb', '$protien', NULL, NULL, '$calories', NULL, '$name', '$brand')");
+
+    echo $response;
+
+
+});
 
 $app->run();
 ?>
