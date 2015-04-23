@@ -562,21 +562,21 @@ $app->get('/advancedSearch', function()
 
 	// $id = 2;
 
-	// $product_names = "sugar, butter, milk";
+	// $names = "sugar, butter, milk";
 	// $max_cal = 100;
 	// $min_carbs = 0;
 	// $max_carbs = 0;
 	// $min_protein = 0;
 	// $max_protein = 0;
 
-	$product_names = $_GET['names'];
+	$names = $_GET['names'];
 	$max_cal = $_GET['maxCal'];
 	$min_protein = $_GET['minProtein'];
 	$max_protein = $_GET['maxProtein'];
-	$min_carbs = $_['min_carbs'];
-	$max_carbs = $_GET['max_carbs'];
+	$min_carbs = $_GET['minCarbs'];
+	$max_carbs = $_GET['maxCarbs'];
 
-	$product_names = explode(", ", $product_names);
+	$names = explode(", ", $names);
 
 
 	//changed these to ints just in case they were saved as JSON strings.
@@ -591,9 +591,9 @@ $app->get('/advancedSearch', function()
 	$request_url = 'http://api.yummly.com/v1/api/recipes?_app_id=6e415947&_app_key=5e4133f9b50bb1bf39382a83d84b8d9e&q=';
 
 
-	for($x = 0; $x < count($product_names); $x++)			
+	for($x = 0; $x < count($names); $x++)			
 	{
-		$request_url .= '&allowedIngredient[]='.$product_names[$x];
+		$request_url .= '&allowedIngredient[]='.$names[$x];
 	}
 
 	$user_restrictions = $database->query("SELECT * FROM DietaryRestrictions WHERE uid = '$id'");
