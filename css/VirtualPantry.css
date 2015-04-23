@@ -4963,7 +4963,7 @@ button.close {
 body.modal-open,
 .modal-open .navbar-fixed-top,
 .modal-open .navbar-fixed-bottom {
-  margin-right: 15px;
+  margin: 0px;
 }
 .modal {
   display: none;
