@@ -53,6 +53,7 @@ $("#newProductName").autocomplete({
     select: function(event, ui){
         $("#newProductName").val(ui.item.label);
         $("#hiddenProductID").val(ui.item.value);
+        $("#submitNewProduct").removeAttr("disabled");
         event.preventDefault();
     }
 });
