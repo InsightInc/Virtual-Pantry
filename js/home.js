@@ -232,13 +232,5 @@ $("#submitNewProduct").click(function() {
 
     });
 
-    $(document).ready(function () {
-      $("span.question").hover(function () {
-        $(this).append('<div class="tooltip"><p>The DV (Daily Value) for calories is 2000 kcal.</p></div>');
-    }, function () {
-        $("div.tooltip").remove();
-    });
-  });
-
 });
 
