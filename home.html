@@ -355,25 +355,121 @@
               <span class="errorMsg"></span>
             </div>
             <div class="form-group4">
+              <label for="calories">Maximum Calories (kcal) <span class="question">?</span></label>
+              <input type = "text" id = "calories" name="calories" class="form-control regForm" />   
+              <script>    
+              	$(document).ready(function () {
+      				$("span.question").hover(function () {
+        				$(this).append('<div class="tooltip"><p>The DV (Daily Value) for calories is 2000 kcal.</p></div>');
+    				}, function () {
+        				$("div.tooltip").remove();
+    				});
+				});
+              </script>   
+            </div>
+            <div class="form-group4">
+              <label for="minProtein">Minimum Protein (g) <span class="question">?</span></label>
+              <input type = "text" id="minProtein" name="minProtein" class="form-control regForm" />
+              <script>    
+              	$(document).ready(function () {
+      				$("span.question").hover(function () {
+        				$(this).append('<div class="tooltip"><p>The DV (Daily Value) for protein is 50 g.</p></div>');
+    				}, function () {
+        				$("div.tooltip").remove();
+    				});
+				});
+              </script>
+            </div>
+            <div class="form-group4">
+              <label for="maxProtein">Maximum Protein (g) <span class="question">?</span></label>
+              <input type = "text" id = "maxProtein" name="maxProtein" class="form-control regForm" />
+              <script>    
+              	$(document).ready(function () {
+      				$("span.question").hover(function () {
+        				$(this).append('<div class="tooltip"><p>The DV (Daily Value) for protein is 50 g.</p></div>');
+    				}, function () {
+        				$("div.tooltip").remove();
+    				});
+				});
+              </script>
+            </div>
+            <div class="form-group4">
+              <label for="minCarbs">Minimum Carbohydrates (g) <span class="question"> ?</span></label>
+              <input type = "text" id = "minCarbs" name="minCarbs" class="form-control regForm" />
+              <script>    
+              	$(document).ready(function () {
+      				$("span.question").hover(function () {
+        				$(this).append('<div class="tooltip"><p>The DV (Daily Value) for carbohydrates is 300 g.</p></div>');
+    				}, function () {
+        				$("div.tooltip").remove();
+    				});
+				});
+              </script>
+            </div>
+            <div class="form-group4">
+              <label for="maxCarbs">Maximum Carbohydrates (g) <span class="question"> ?</span></label>
+              <input type = "text" id = "maxCarbs" name="maxCarbs" class="form-control regForm" />
+              <script>    
+              	$(document).ready(function () {
+      				$("span.question").hover(function () {
+        				$(this).append('<div class="tooltip"><p>The DV (Daily Value) for carbohydrates is 300 g.</p></div>');
+    				}, function () {
+        				$("div.tooltip").remove();
+    				});
+				});
+              </script>
+            </div>
+
+<!--             <div class="form-group4">
+              <label for="ingredient">Ingredients</label>
+              <input type = "text" id = "ingredient" name="ingredient" class="form-control regForm" />      
+              <span class="errorMsg"></span>
+            </div> -->
+<!--             <div class="form-group4">
               <label for="calories">Maximum Calories (kcal)</label>
-              <input type = "text" id = "calories" name="calories" class="form-control regForm" />      
+              <input type = "range" id = "calories" name="calories" min="0" max="2000" value="1000" oninput="updateCals(value)"/>  
+              <output for="max_calories" id="max_c">1000</output>
+              <script>function updateCals(max_cal) {
+				document.querySelector('#max_c').value = max_cal;
+				}   
+			  </script> 
             </div>
             <div class="form-group4">
               <label for="minProtein">Minimum Protein (g)</label>
-              <input type = "text" id = "minProtein" name="minProtein" class="form-control regForm" />
-            </div>
-            <div class="form-group4">
+              <input type = "range" id = "min_Protein" name="minProtein" min="0" max="50" value="25" oninput="updateMinProtein(value)"/>
+              <output for="min_Protein" id="min_p">25</output>
+              <script>function updateMinProtein(min_pro) {
+				document.querySelector('#min_p').value = min_pro;
+				}
+			  </script>
+            </div> -->
+<!--             <div class="form-group4">
               <label for="maxProtein">Maximum Protein (g)</label>
-              <input type = "text" id = "maxProtein" name="maxProtein" class="form-control regForm" />
-            </div>
-            <div class="form-group4">
+              <input type = "range" id = "maxProtein" name="maxProtein" min="0" max="50" value="25" oninput="updateMaxProtein(value)"/>
+              <output for="max_protein" id="max_p">25</output>
+              <script>function updateMaxProtein(max_pro) {
+				document.querySelector('#max_p').value = max_pro;
+				}
+			  </script>
+            </div> -->
+<!--            <div class="form-group4">
               <label for="minCarbs">Minimum Carbohydrates (g)</label>
-              <input type = "text" id = "minCarbs" name="minCarbs" class="form-control regForm" />
-            </div>
-            <div class="form-group4">
+              <input type = "range" id = "minCarbs" name="minCarbs" min="0" max="300" value="150" oninput="updateMinCarbs(value)"/>
+              <output for="min_Carbs" id="min_carb">150</output>
+              <script>function updateMinCarbs(min_carbs) {
+				document.querySelector('#min_carb').value = min_carbs;
+				}
+			  </script>
+            </div> -->
+<!--             <div class="form-group4">
               <label for="maxCarbs">Maximum Carbohydrates (g)</label>
-              <input type = "text" id = "maxCarbs" name="maxCarbs" class="form-control regForm" />
-            </div>
+              <input type = "range" id = "maxCarbs" name="maxCarbs" min="0" max="300" value="150" oninput="updateMaxCarbs(value)"/>
+              <output for="max_Carbs" id="max_carb">150</output>
+              <script>function updateMaxCarbs(max_carbs) {
+				document.querySelector('#max_carb').value = max_carbs;
+				}
+			  </script>
+            </div> -->
           <div class="modal-footer">
             <button id="filterRecipeSearch" class="btn btn-primary" data-dismiss="modal">Search</button>
           </div>
