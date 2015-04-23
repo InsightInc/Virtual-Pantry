@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 		<title>Virtual Pantry - Dashboard</title>
 		<!-- Latest compiled and minified CSS -->
@@ -10,6 +11,8 @@
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/VirtualPantry.css">
+
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css" />
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
@@ -109,9 +112,10 @@
 							<h2>Add a New Pantry Item</h2>
 		                	<div class="form-group">
 			                    <label for="newProductName" id="idk">Name</label>
-			                    <input type="text" class="form-control" id="newProductName" name="newProductName" />
+			                    <input type="text" class="form-control" id="newProductName" name="newProductName" placeholder="Start typing for autocomplete..." />
+			                    <input type="text" id="hiddenProductID" style="display:none" />
 			                </div>
-			                <button id="submitNewProduct" class="btn btn-primary" data-toggle="modal" data-target="#products">Submit</button>
+			                <button id="submitNewProduct" class="btn btn-primary" disabled>Submit</button>
 			                <button id="createItem" class="btn btn-primary" data-toggle="modal" data-target="#create">Create Item</button>
 			            </div>
 			            <div role="tabpanel" class="tab-pane" id="profile">

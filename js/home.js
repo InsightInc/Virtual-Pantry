@@ -38,10 +38,30 @@ $(document).ready(function(){
         });
         location.reload();
     });*/
-
+//ADDING AUTOCOMPLETE HERE
+$("#newProductName").autocomplete({
+    source: function(request,response){
+        $.get("api/getProductSearch",{name: request.term}, function(data) {
+            var products = JSON.parse(data);
+            var arrToReturn = [];
+            $(products).each(function(index,product) {
+                arrToReturn.push({label: product.product_name + ", " + product.product_size, value: product.upc});
+                response(arrToReturn);
+            });
+        });
+    },
+    select: function(event, ui){
+        $("#newProductName").val(ui.item.label);
+        $("#hiddenProductID").val(ui.item.value);
+        $("#submitNewProduct").removeAttr("disabled");
+        event.preventDefault();
+    }
+});
+console.log('did the autocomplete');
+//DONE AUTOCOMPLETING
 
 $("#submitNewProduct").click(function() {
-    var product = $("#newProductName").val();
+    /*var product = $("#newProductName").val();
     var products;
     jQuery.ajaxSetup({async:false});
     $.get("api/getProductSearch",{name: product},function(data) {
@@ -61,11 +81,26 @@ $("#submitNewProduct").click(function() {
     $("label[for='product3']").text(products[3].product_name + ', ' + products[3].product_size);
     $("#product3").val(products[3].upc);
     $("label[for='product4']").text(products[4].product_name + ', ' + products[4].product_size);
-    $("#product4").val(products[4].upc);
+    $("#product4").val(products[4].upc);*/
 
+    //IF REVERTING TO MODAL DELETE THIS
+    var n = $("#newProductName").val();
+    var upcCode = $("#hiddenProductID").val();
+    $.get("api/addProductSearch",{upc: upcCode, name: n},function(data) {
+        console.log(data);
+        if(data == true)
+        {
+            pantryTable.row.add([n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.draw();
+        }
+
+
+    });
+    //DOWN TO HERE  
 });
 
     //Add product through name search
+    //DEPRECATED BECAUSE WE REPLACED THE MODAL WITH AN AUTOCOMPLETE
     $("#addProductSearch").click(function(){
         var input = $("input[type='radio'][name='product']:checked");
         var upcCode = input.val();
