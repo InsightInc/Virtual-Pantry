@@ -216,7 +216,7 @@ $("#submitNewProduct").click(function() {
     $("#filterRecipeSearch").click(function() {
         recipeTable.clear();
         $("#frecipeLoadIndic").show();
-        $.get("api/advancedSearch", {names: $("#ingredient").val(), maxCal: $("#calories").val(), maxProtein: $("#maxProtein").val(), minProtein: $("#minProtein").val()}, function(data) {
+        $.get("api/advancedSearch", {names: $("#ingredient").val(), maxCal: $("#calories").val(), maxProtein: $("#maxProtein").val(), minProtein: $("#minProtein").val(), minCarbs: $("#minCarbs").val(), maxCarbs: $("#maxCarbs").val()}, function(data) {
             var dataArr = JSON.parse(data);
             console.log(data);
             $("#frecipeLoadIndic").hide();
