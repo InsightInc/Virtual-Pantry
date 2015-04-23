@@ -571,11 +571,17 @@ $app->get('/advancedSearch', function()
 	$max_cal = $_GET['maxCal'];
 	$min_protein = $_GET['minProtein'];
 	$max_protein = $_GET['maxProtein'];
+	$min_carbs = $_['min_carbs'];
+	$max_carbs = $_GET['max_carbs'];
 
 	// $parse_query = 	explode(", ", $advancedQuery); 
 	$product_names = explode(", ", $product_names);
 
+
+	//changed these to ints just in case they were saved as JSON strings.
 	$max_cal = intval($max_cal);
+	$min_carbs = intval($min_carbs);
+	$max_carbs = intval($max_carbs);
 	$min_protein = intval($min_protein);
 	$max_protein = intval($max_protein);
 
@@ -602,8 +608,13 @@ $app->get('/advancedSearch', function()
 				$request_url .= '&allowedAllergy[]='.$dietary_keys[array_keys($dietary_keys)[$x]];
 		}
 	}
-	// if(isset($max_cal))
-	// 	$request_url .= '&nutrition.PROCNT.max='.$max_cal;
+
+	if(isset($max_cal))
+		$request_url .= '&nutrition.ENERC_KCAL.max='.$max_cal;	
+	if(isset($min_carbs))
+		$request_url .= '&nutrition.CHOCDF.min='.$min_carbs;
+	if(isset($max_carbs))
+		$request_url .= '&nutrition.CHOCDF.max='.$max_carbs;
 	if(isset($min_protein))
 		$request_url .= '&nutrition.PROCNT.min='.$min_protein;
 	if(isset($max_protein))
