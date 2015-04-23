@@ -564,8 +564,10 @@ $app->get('/advancedSearch', function()
 
 	// $product_names = "sugar, butter, milk";
 	// $max_cal = 100;
-	// $min_protein = 20;
-	// $max_protein = 50;
+	// $min_carbs = 0;
+	// $max_carbs = 0;
+	// $min_protein = 0;
+	// $max_protein = 0;
 
 	$product_names = $_GET['names'];
 	$max_cal = $_GET['maxCal'];
@@ -574,7 +576,6 @@ $app->get('/advancedSearch', function()
 	$min_carbs = $_['min_carbs'];
 	$max_carbs = $_GET['max_carbs'];
 
-	// $parse_query = 	explode(", ", $advancedQuery); 
 	$product_names = explode(", ", $product_names);
 
 
