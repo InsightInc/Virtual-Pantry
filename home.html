@@ -112,6 +112,7 @@
 			                    <input type="text" class="form-control" id="newProductName" name="newProductName" />
 			                </div>
 			                <button id="submitNewProduct" class="btn btn-primary" data-toggle="modal" data-target="#products">Submit</button>
+			                <button id="createItem" class="btn btn-primary" data-toggle="modal" data-target="#create">Create Item</button>
 			            </div>
 			            <div role="tabpanel" class="tab-pane" id="profile">
 			            	<h3 id="profile1">Your Profile</h3>
@@ -120,9 +121,9 @@
 	            			<button id="change" class="btn btn-primary" data-toggle="modal" data-target="#allergies">Add/Remove Allergies</button>
 	            			<hr />
 	            			<h4>Account Information</h4>
-	            			<label for="firstname">First Name:</label><p id="fname"></p>
-				            <label for="lastname">Last Name:</label><p id="lname"></p>
-				            <label for="email">Email:</label><p id="email"></p>
+	            			<label for="firstname">Name: </label><span id="fname"></span><br>
+				            <!-- <label for="lastname">Last Name:</label><p id="lname"></p> -->
+				            <label for="email">Email: </label><span id="email"></span><br>
 				            <button id="changePassword" class="btn btn-primary" data-toggle="modal" data-target="#changeInformation">Change Password</button>
 				            <button id="changeEmail" class="btn btn-primary" data-toggle="modal" data-target="#changeEmailModal">Change Email</button>
 				            <!--<button id = "submitLogout" class="btn btn-default navbar-btn">Logout</button>-->
@@ -167,6 +168,19 @@
 			</div>
 		</div>
 	</body>
+
+	<!--modal for advanced search-->
+<!-- 	<div class="modal fade" id="allergies" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Change Your Allergies</h4>
+          </div> -->
+
+
+
+
 	<!--modals for profile-->
 	<div class="modal fade" id="allergies" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -302,6 +316,35 @@
             
           <div class="modal-footer">
             <button id="addProductSearch" class="btn btn-primary" data-dismiss="modal">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Create Your Item</h4>
+          </div>
+          <div class="modal-body"> 
+            <div class="form-group3 createForm">
+            	<label for="createName" id="namel">Name </label><input type="text" class="form-control" id="nameCreate" name="createInfo" />
+            	<label for="createName" id="brandl">Brand: </label><input type="text" class="form-control" id="brand" name="createInfo" />
+            	<label for="createName" id="fatl">Fat Content: </label><input type="text" class="form-control" id="fat" name="createInfo" />
+            	<label for="createName" id="choll">Cholesterol Content: </label><input type="text" class="form-control" id="chol" name="createInfo" />
+            	<label for="createName" id="sodiuml">Sodium Content: </label><input type="text" class="form-control" id="sodium" name="createInfo" />
+            	<label for="createName" id="carbl">Carbohydrate Content: </label><input type="text" class="form-control" id="carb" name="createInfo" />
+            	<label for="createName" id="protienl">Protien Content: </label><input type="text" class="form-control" id="protien" name="createInfo" />
+            	<label for="createName" id="cal'l">Caloire Content: </label><input type="text" class="form-control" id="cal" name="createInfo" />
+
+            </div>
+
+          </div>
+            
+          <div class="modal-footer">
+            <button id="addProductCreate" class="btn btn-primary" data-dismiss="modal">Submit</button>
           </div>
         </div>
       </div>

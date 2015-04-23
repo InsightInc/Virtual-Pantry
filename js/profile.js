@@ -155,9 +155,9 @@ $(document).ready(function(){
     $.get("api/getUserInfo",function(data){
 			console.log(data);
 			var x = JSON.parse(data);
-			document.getElementById("fname").innerHTML = x.fname;
-			document.getElementById("lname").innerHTML = x.lname;
-			document.getElementById("email").innerHTML = x.email;
+			document.getElementById("fname").innerHTML = " " + x.fname + " " + x.lname;
+			// document.getElementById("lname").innerHTML = x.lname;
+			document.getElementById("email").innerHTML = " " + x.email;
             document.getElementById("profile1").innerHTML = x.fname + "\'s Profile";
 
 		});

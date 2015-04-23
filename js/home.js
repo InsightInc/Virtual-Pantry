@@ -1,6 +1,7 @@
 var pantryTable, recipeTable;
 $(document).ready(function(){
 
+    //HALT, YOU SHALL NOT PASS
     $.post("api/checkUser", function(data){
         console.log(data);
         if(data == false)
@@ -10,23 +11,24 @@ $(document).ready(function(){
         }
     });
 
-     $.get("api/getUserInfo",function(data){
-            console.log(data);
-            var x = JSON.parse(data);
-            document.getElementById("uPantry").innerHTML = x.fname + "\'s Pantry";
-            
+    //Give Pantry Name
+    $.get("api/getUserInfo",function(data){
+        console.log(data);
+        var x = JSON.parse(data);
+        document.getElementById("uPantry").innerHTML = x.fname + "\'s Pantry";       
+    });
 
-        });
-
+    //pantryTable
     pantryTable = $("#pantryList").DataTable({
         "scrollY":          "300px",
         "scrollCollapse":   false,
         "paging":           false
     });
 
+    //Seach for new Product with name
     $("#newProductName").keyup(function(event) {
-    if(event.keyCode == 13)
-        $("#submitNewProduct").click();
+        if(event.keyCode == 13)
+            $("#submitNewProduct").click();
     });
     
     /*$("#submitNewProduct").click(function() {
@@ -37,31 +39,33 @@ $(document).ready(function(){
         location.reload();
     });*/
 
-    $("#submitNewProduct").click(function() {
-        var product = $("#newProductName").val();
-        var products;
-        jQuery.ajaxSetup({async:false});
-        $.get("api/getProductSearch",{name: product},function(data) {
-            console.log(data);
+
+$("#submitNewProduct").click(function() {
+    var product = $("#newProductName").val();
+    var products;
+    jQuery.ajaxSetup({async:false});
+    $.get("api/getProductSearch",{name: product},function(data) {
+            //console.log(data);
             products = JSON.parse(data);
             console.log(products);
 
         });
-        jQuery.ajaxSetup({async:true});
+    jQuery.ajaxSetup({async:true});
 
-        $("label[for='product0']").text(products[0].product_name + ', ' + products[0].product_size);
-        $("#product0").val(products[0].upc);
-        $("label[for='product1']").text(products[1].product_name + ', ' + products[1].product_size);
-        $("#product1").val(products[1].upc);
-        $("label[for='product2']").text(products[2].product_name + ', ' + products[2].product_size);
-        $("#product2").val(products[2].upc);
-        $("label[for='product3']").text(products[3].product_name + ', ' + products[3].product_size);
-        $("#product3").val(products[3].upc);
-        $("label[for='product4']").text(products[4].product_name + ', ' + products[4].product_size);
-        $("#product4").val(products[4].upc);
+    $("label[for='product0']").text(products[0].product_name + ', ' + products[0].product_size);
+    $("#product0").val(products[0].upc);
+    $("label[for='product1']").text(products[1].product_name + ', ' + products[1].product_size);
+    $("#product1").val(products[1].upc);
+    $("label[for='product2']").text(products[2].product_name + ', ' + products[2].product_size);
+    $("#product2").val(products[2].upc);
+    $("label[for='product3']").text(products[3].product_name + ', ' + products[3].product_size);
+    $("#product3").val(products[3].upc);
+    $("label[for='product4']").text(products[4].product_name + ', ' + products[4].product_size);
+    $("#product4").val(products[4].upc);
 
-    });
+});
 
+    //Add product through name search
     $("#addProductSearch").click(function(){
         var input = $("input[type='radio'][name='product']:checked");
         var upcCode = input.val();
@@ -80,14 +84,29 @@ $(document).ready(function(){
 
     });
 
+    //Add prodcut through user create
+    $("#addProductCreate").click(function(){
+        var name = $("#nameCreate").val();
+        $.post("api/createItem", {name: $("#nameCreate").val(), brand: $("#brand").val(), fat: $("#fat").val(), sodium: $("#sodium").val(), 
+            carb: $("#carb").val(), protien: $("#protien").val(), calories: $("#cal").val(), chol: $("#chol").val()}, function(data){
+                console.log(data);
+                if(data == true)
+                {
+                    pantryTable.row.add([name, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                    pantryTable.draw();
+                }
+            });
 
+    });
+
+    //Recipe search
     $("#searchForRecipe").click(function() {
         recipeTable.clear();
-	$("#recipeLoadIndic").show();
+        $("#recipeLoadIndic").show();
         $.get("api/getRecipes", {query: $("#ingredientName").val()}, function(data) {
             var dataArr = JSON.parse(data);
             console.log(data);
-	    $("#recipeLoadIndic").hide();
+            $("#recipeLoadIndic").hide();
             $.each(dataArr,function(index, value1) {
                 var img = '<img src=\"' + value1[1] + '\">';
                 $.each(value1[0], function(key, value) {
@@ -99,20 +118,23 @@ $(document).ready(function(){
         });
     });
 
-    $("#ingredientName").keyup(function(event) {
-	if(event.keyCode == 13)
-	    $("#searchForRecipe").click();
-    });
 
+    $("#ingredientName").keyup(function(event) {
+       if(event.keyCode == 13)
+           $("#searchForRecipe").click();
+   });
+
+    //recipeTable
     recipeTable = $("#recipesTable").DataTable({
         "scrollY":          "240px",
         "scrollCollapse":   false,
         "paging":           false,
-	    "dom":		        "ti",
+        "dom":		        "ti",
         "columns":          [{"orderable": false}, null],
         "order":            [[1, "asc"]]
     });
 
+    //logout
     $("#submitLogout").click(function() {
         $.post("api/logout",{logout: true},function(data) {
             var status = JSON.parse(data);
@@ -127,7 +149,8 @@ $(document).ready(function(){
             }
         });
     });
-    
+
+    //profile button
     $("#viewProfile").click(function(){
         window.location = "profile.html";
     });
@@ -142,7 +165,7 @@ $(document).ready(function(){
         pantryTable.draw();
     });
 
-    //Get product info
+    //Get product info/Remove item
     $('#pantryList tbody').on('click', 'td', function() {
         var cellData = pantryTable.cell(this).data();
         console.log(cellData);
@@ -159,15 +182,27 @@ $(document).ready(function(){
             cellData = $(this).parent().find("td").first().text();
             $.get("api/removeProduct", {name: cellData},function(data){
                 console.log(data);
-                if(data == 1){
-                    alert("Success");
+                if(data == true){
+                    pantryTable.row($(this).index().row).remove();
+                    pantryTable.draw();
+                    //location.reload();
+                    $.get("api/getPantryList",function(data) {
+                        var dataAsArr = JSON.parse(data);
+                        console.log(dataAsArr);
+                        $.each(dataAsArr,function(index, value) {
+                            pantryTable.row.add([value[0], '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                        });
+                        pantryTable.draw();
+                    });
+
                 }
-                if(data == 0){
+                else{
                     alert("Failure");
                 }
             });
-            location.reload();
+
         }
+        
     });
 
     //initialize tabs
