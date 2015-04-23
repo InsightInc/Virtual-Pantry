@@ -4,7 +4,7 @@ $(document).ready(function(){
     jQuery.ajaxSetup({async:false});
     $("#submitReg").click(function() {
         var hasError = false;
-        $("div.form-group").each(function(index,val) {
+        $("div.form-groupr").each(function(index,val) {
             var formid = "#" + $(this).find("input").attr("id");
             if($(formid).val() == "") {
                 $(this).find(".errorMsg").html("This field is required.");
@@ -17,7 +17,7 @@ $(document).ready(function(){
                 $(this).find(".errorMsg").empty();
             }
         });
-        if($("#password").val() != $("#passwordconfirm").val()) {
+        if($("#passwordr").val() != $("#passwordconfirm").val()) {
             $("#passMismatch").html("Passwords must match.");
             $(".passForm").addClass("has-error");
             hasError = true;
@@ -25,7 +25,7 @@ $(document).ready(function(){
         else{
             $("#passMismatch").empty();
         }
-        $.get("api/validateEmail",{email: $("#email").val()}, function(data){
+        $.get("api/validateEmail",{email: $("#emailr").val()}, function(data){
             console.log(data);
             if(data == false)
             {
@@ -46,7 +46,7 @@ $(document).ready(function(){
         if(!hasError && emailCheck == true)
         {
             $.post("api/register",{firstname: $("#firstname").val().substr(0,1).toUpperCase() + $("#firstname").val().substr(1).toLowerCase(), lastname: $("#lastname").val().substr(0,1).toUpperCase() + $("#lastname").val().substr(1).toLowerCase(),
-                                email: $("#email").val(), password: $("#password").val()},function(data) {
+                                email: $("#emailr").val(), password: $("#passwordr").val()},function(data) {
 
                 var status = JSON.parse(data);
                 console.log(data);

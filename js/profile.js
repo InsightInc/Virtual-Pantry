@@ -143,7 +143,6 @@ $(document).ready(function(){
 
         console.log(allergies);
         allergies = JSON.stringify(allergies);
-        console.log(allergies);
 
         $.post("api/changeDiet", {checkbox: allergies}, function(data){
             console.log(data);
