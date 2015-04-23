@@ -144,11 +144,27 @@ $(document).ready(function(){
         console.log(allergies);
         allergies = JSON.stringify(allergies);
 
+        jQuery.ajaxSetup({async:false});
         $.post("api/changeDiet", {checkbox: allergies}, function(data){
             console.log(data);
         });
+        jQuery.ajaxSetup({async:true});
 
-	location.reload();
+        $("#alist").empty();
+        $.get("api/getDiet",function(data){
+            console.log(data);
+            var x = JSON.parse(data);
+
+            for(var i = 0; i < x.length; i++){
+                var ul = document.getElementById("alist");
+                var li = document.createElement("li");
+                li.appendChild(document.createTextNode(x[i][0]));
+                ul.appendChild(li);
+                $("input[name='checkbox']")[x[i][1]].checked = true;
+            }   
+        });
+
+	   //location.reload();
 
     });
 
