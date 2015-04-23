@@ -610,15 +610,15 @@ $app->get('/advancedSearch', function()
 		}
 	}
 
-	if(isset($max_cal))
+	if(!(empty($max_cal)))
 		$request_url .= '&nutrition.ENERC_KCAL.max='.$max_cal;	
-	if(isset($min_carbs))
+	if(!(empty($min_carbs)))
 		$request_url .= '&nutrition.CHOCDF.min='.$min_carbs;
-	if(isset($max_carbs))
+	if(!(empty($max_carbs)))
 		$request_url .= '&nutrition.CHOCDF.max='.$max_carbs;
-	if(isset($min_protein))
+	if(!(empty($min_protein)))
 		$request_url .= '&nutrition.PROCNT.min='.$min_protein;
-	if(isset($max_protein))
+	if(!(empty($max_protein)))
 		$request_url .= '&nutrition.PROCNT.max='.$max_protein;
 	// (NA, CHOLE, CHOCDF, PROCNT, FAT) Sodium, cholesterol, carbs, protein, fat 
 
