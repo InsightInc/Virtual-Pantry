@@ -1,3 +1,9 @@
+String.prototype.capitalize = function(){
+            return this.toLowerCase().replace( /\b\w/g, function (m) {
+                return m.toUpperCase();
+            });
+        };
+
 var pantryTable, recipeTable;
 $(document).ready(function(){
 
@@ -90,7 +96,7 @@ $("#submitNewProduct").click(function() {
         console.log(data);
         if(data == true)
         {
-            pantryTable.row.add([n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.row.add([n.capitalize(), '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
             pantryTable.draw();
         }
 
@@ -271,4 +277,6 @@ $("#submitNewProduct").click(function() {
     });
 
 });
+
+
 
