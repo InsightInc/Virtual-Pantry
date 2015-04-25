@@ -6,3 +6,5 @@ Make sure to create a seperate branch anytime you are working on the project. Do
 API: http://docs.virtualpantryapi.apiary.io/#
 
 EC2 Instance: http://virtual-pantry.com/
+
+App Repository: Either go to InsightInc organization and click on VirtualPantryApp, or go to the address: https://github.com/InsightInc/VirtualPantryApp
