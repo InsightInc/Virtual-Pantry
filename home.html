@@ -4,6 +4,29 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+
+		<script type="text/javascript">
+
+		// $(document).ready(function(){
+		// 	$(".glyphicon-info-sign").click(function(){
+		// 		$("#cals_info").popover('toggle');
+		// 	}); 
+		// });
+
+		$(document).ready(function(){
+			$('[data-toggle="popover"]').popover();   
+});
+
+		// $(function (){
+		// 	$('.glyphicon-info-sign').popover('toggle');
+		// });
+
+		// $(document).ready(function() 
+		// {
+		// 	$('.glyphicon glyphicon-info-sign').popover({trigger:'hover',content:'The Daily Value(DV) for calories is 2000 kCal.',placement:'right'});
+		// });
+
+		</script>  
 		<link rel="icon" type="image/ico" href="images/newfavicon.ico">
 		<title>Virtual Pantry - Dashboard</title>
 		<!-- Latest compiled and minified CSS -->
@@ -361,23 +384,23 @@
               <span class="errorMsg"></span>
             </div>
             <div class="form-group4">
-              <label for="calories">Maximum Calories (kcal) </label>
-              <input type = "text" id = "calories" name="calories" class="form-control regForm" />    
+              <label for="calories">Maximum Calories (kcal)<span class="glyphicon glyphicon-info-sign" style="color:black; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="The Daily Value (DV) for calories is 2000 kCal!<br /><br />Low Calorie Range: 1000 - 1500 kCal per day" data-html="true"></span></label>
+              <input type = "text" id = "calories" name="calories" class="form-control regForm" />  
             </div>
             <div class="form-group4">
-              <label for="minProtein">Minimum Protein (g) </label>
+              <label for="minProtein">Minimum Protein (g) <span class="glyphicon glyphicon-info-sign" style="color:black; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="The Daily Value (DV) for protein is 50 g!"></span></label>
               <input type = "text" id="minProtein" name="minProtein" class="form-control regForm" />
             </div>
             <div class="form-group4">
-              <label for="maxProtein">Maximum Protein (g) </label>
+              <label for="maxProtein">Maximum Protein (g) <span class="glyphicon glyphicon-info-sign" style="color:black; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="The Daily Value (DV) for protein is 50 g!"></span></label>
               <input type = "text" id = "maxProtein" name="maxProtein" class="form-control regForm" />
             </div>
             <div class="form-group4">
-              <label for="minCarbs">Minimum Carbohydrates (g) </label>
+              <label for="minCarbs">Minimum Carbohydrates (g) <span class="glyphicon glyphicon-info-sign" style="color:black; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="The Daily Value (DV) for carbohydrates is 300 g! <br /><br /> Low Carb Range: 20 - 50g per day" data-html="true"></span></label>
               <input type = "text" id = "minCarbs" name="minCarbs" class="form-control regForm" />
             </div>
             <div class="form-group4">
-              <label for="maxCarbs">Maximum Carbohydrates (g) </label>
+              <label for="maxCarbs">Maximum Carbohydrates (g) <span class="glyphicon glyphicon-info-sign" style="color:black; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="The Daily Value (DV) for carbohydrates is 300 g!<br /><br /> High Carb Range: 150 - 300g per day" data-html = "true"></span></label>
               <input type = "text" id = "maxCarbs" name="maxCarbs" class="form-control regForm" />
             </div>
 
