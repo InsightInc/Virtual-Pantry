@@ -66,10 +66,10 @@ $(document).ready(function(){
         }
         jQuery.ajaxSetup({async:true});
 
-        $("#passwordconfirm").keyup(function(event) {
-            if(event.keyCode == 13)
-                $("#submitReg").click();
-        });
+        // $("#passwordr").keyup(function(event) {
+        //     if(event.keyCode == 13)
+        //         $("#submitReg").click();
+        // });
     });
 
 })
