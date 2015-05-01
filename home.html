@@ -118,7 +118,7 @@
 					<p style="padding-top:1%">Virtual Pantry</p>
 
 				</div>
-			<div class="col-md-5" role="tabpanel">
+			<div class="col-md-5" role="tabpanel" style="width:34%">
 				<div class="well"  style="height:500px; overflow-y:scroll">
 					<ul class="nav nav-tabs" role="tablist" id="pantryTabs">
 						<li role="presentation" class="active" style="width:33%">
@@ -163,12 +163,12 @@
 	                		<div class="form-group form-inline" style="margin-bottom:0">
 	                    		<input type="text" class="form-control" placeholder="Ingredient Name" id="ingredientName" name="ingredientName" />
 			    				<button id="searchForRecipe" class="btn btn-primary" style="margin-bottom:5px">Search</button>
-			    				<span id="recipeLoadIndic" style="display:none"><img src="images/ajax-loader-2.gif" /></span>
 			    				 <button id="filtersearch" class="btn btn-primary" style="margin-bottom:5px" data-toggle="modal" data-target="#advancedSearchModal">Customize Search</button>
 			    				 <span class="glyphicon glyphicon-info-sign" style="color:white; font-size:1.2em; padding-right: 5px; padding-left: 5px" id="cals_info" data-placement="right" data-toggle="popover" data-content="Input items separated by a comma (,) and hit submit to find your recipes!" data-html="true"></span>
 			    				 <span id="frecipeLoadIndic" style="display:none"><img src="images/ajax-loader-2.gif" /></span>
 	                		</div>
-	                		<p style="margin:0">powered by <img src="Images/yummly.png" style="height:20px; width:50px" /></p>
+	                		<p style="margin:0;float:left">powered by <img src="Images/yummly.png" style="height:20px; width:50px" /></p>
+	                		<span id="recipeLoadIndic" style="display:none;margin-left:10px;-webkit-filter:invert(100%)"><img src="images/ajax-loader-2.gif" /></span>
 			                <table id="recipesTable" class="display">
 			                    <thead>
 			                        <tr>
@@ -183,7 +183,7 @@
 	                </div>
                 </div>
 			</div>
-			<div class="col-md-4" id="pantryDiv">
+			<div class="col-md-4" id="pantryDiv" style="left:43%;width:28%">
 				<div class="well" style="height:500px">
 	                <h2 id="uPantry" style="margin-top:10px;margin-bottom:20px">Your Pantry</h2>
 					<table id="pantryList" class="display">

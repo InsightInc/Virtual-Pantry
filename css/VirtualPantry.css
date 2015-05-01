@@ -20,16 +20,18 @@
 #indexBody {
 
   background-image: url("../images/loginBackground.jpg");
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 
 }
 
 #homeBody {
 
   background-image: url("../images/homeBackground.jpg");
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 
 }
 
@@ -747,8 +749,8 @@ pre code {
   overflow-y: scroll;
 }
 .container {
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 7%;
+  margin-left: 7%;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -852,10 +854,11 @@ pre code {
 .col-lg-10,
 .col-lg-11,
 .col-lg-12 {
-  position: relative;
+  position: fixed;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  max-width: 35%;
 }
 .col-xs-1,
 .col-xs-2,
@@ -3421,7 +3424,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 11%;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
