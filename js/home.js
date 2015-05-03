@@ -1,8 +1,77 @@
 String.prototype.capitalize = function(){
-            return this.toLowerCase().replace( /\b\w/g, function (m) {
-                return m.toUpperCase();
+    return this.toLowerCase().replace( /\b\w/g, function (m) {
+        return m.toUpperCase();
+    });
+};
+
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Full name:</td>'+
+            '<td>'+d.name+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Extension number:</td>'+
+            '<td>'+d.extn+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Extra info:</td>'+
+            '<td>And any further details here (images etc)...</td>'+
+        '</tr>'+
+    '</table>';
+}        
+
+/*function format (tr, row) {
+    console.log('in format');
+    console.log('row.data()');
+    console.log(row.data());
+    $.get("api/getProductInfo",{name:row.data().productName},function(data){
+        var x = JSON.parse(data);
+        console.log(x);
+        console.log("row");
+        //console.log(row.data().productName);
+        var thehtml = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + '<tr>' + '<td>Calories</td>' + '<td>' + x["cal"] + '</td>' + '</tr>';
+        thehtml += '</table>';
+        row.child(thehtml).show();
+        tr.addClass('shown');
+    });
+}*/
+
+function loadNutr (prodName) {
+    $.get("api/getProductInfo",{name:prodName},function(data){
+        var x = JSON.parse(data);
+        //console.log("data");
+        //console.log(x);
+        var y = "<table style='border-spacing: 20px; border-collapse: separate'><tr><td>Calories</td><td>" + x["cal"] + "</td></tr>";
+        y += "<tr><td>Carbs</td><td>" + x["carb"] + "</td></tr>";
+        y += "<tr><td>Cholesterol (mg)</td><td>" + x["chol"] + "</td></tr>";
+        y += "<tr><td>Fat (g)</td><td>" + x["fat"] + "</td</tr>";
+        y += "<tr><td>Protien (g)</td><td>" + x["protien"] + "</td></tr>";
+        y += "<tr><td>Sodium (mg)</td><td>" + x["sodium"] + "</td></tr></table>";
+        $("#nutrinfobody").html(y);
+        $("#nutrinfotitle").html("Nutritional Info: " + prodName);
+    });
+}
+
+function deleteRecipeItem(prodName) {
+    $.get("api/removeProduct", {name: prodName},function(data){
+        console.log(data);
+        if(data == true){
+            pantryTable.clear();
+            $.get("api/getPantryList",function(data) {
+                var dataAsArr = JSON.parse(data);
+                console.log(dataAsArr);
+                $.each(dataAsArr,function(index, value) {
+                    var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
+                    pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[0] + '\'"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                });
+                pantryTable.draw();
             });
-        };
+        }
+    });
+}
 
 var pantryTable, recipeTable;
 $(document).ready(function(){
@@ -26,10 +95,57 @@ $(document).ready(function(){
 
     //pantryTable
     pantryTable = $("#pantryList").DataTable({
+        /*"columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            {"data": "Product Name"},
+            {"data": "Remove"}
+        ],*/
         "scrollY":          "300px",
         "scrollCollapse":   false,
-        "paging":           false
+        "paging":           false,
+        /*"columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            {"data":"productName"},
+            {"data":"remove"}
+        ]*/
     });
+
+    /*$('.details-control').on('click',function(){
+
+        var tr = $(this).closest('tr');
+        var row = pantryTable.row( tr );
+        if ( row.child.isShown() ) {
+
+    // Add event listener for opening and closing details
+    $('#pantryList tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            format(tr,row);
+        }
+    });
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );*/
+
 
     //Seach for new Product with name
     $("#newProductName").keyup(function(event) {
@@ -204,13 +320,14 @@ $("#submitNewProduct").click(function() {
         var dataAsArr = JSON.parse(data);
         console.log(dataAsArr);
         $.each(dataAsArr,function(index, value) {
-            pantryTable.row.add([value[0], '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
+            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[0] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
         });
         pantryTable.draw();
     });
 
     //Get product info/Remove item
-    $('#pantryList tbody').on('click', 'td', function() {
+    /*$('.deleteRecipeItem').click(function() {
         var cellData = pantryTable.cell(this).data();
         console.log(cellData);
 
@@ -221,8 +338,6 @@ $("#submitNewProduct").click(function() {
                 alert(data);
             });
         }
-        if(cindex == 1)
-        {
             cellData = $(this).parent().find("td").first().text();
             $.get("api/removeProduct", {name: cellData},function(data){
                 console.log(data);
@@ -244,10 +359,8 @@ $("#submitNewProduct").click(function() {
                     alert("Failure");
                 }
             });
-
-        }
         
-    });
+    });*/
 
     //initialize tabs
     $("#pantryTabs a").click(function(e){
