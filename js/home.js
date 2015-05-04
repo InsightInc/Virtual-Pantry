@@ -216,7 +216,6 @@ $("#submitNewProduct").click(function() {
             pantryTable.draw();
         }
 
-
     });
     //DOWN TO HERE  
 });
@@ -231,7 +230,7 @@ $("#submitNewProduct").click(function() {
             console.log(data);
             if(data == true)
             {
-                pantryTable.row.add([n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#" onclick="loadNutr(\'' + value[0] + '\')">Info</a>', n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
                 pantryTable.draw();
             }
 
