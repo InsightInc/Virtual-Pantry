@@ -55,8 +55,9 @@ function loadNutr (prodName) {
     });
 }
 
-function deleteRecipeItem(prodName) {
-    $.get("api/removeProduct", {name: prodName},function(data){
+function deleteRecipeItem(barcode) {
+    console.log('in deleterecipeitem');
+    $.get("api/removeProductByID", {productID: barcode},function(data){
         console.log(data);
         if(data == true){
             pantryTable.clear();
@@ -64,8 +65,8 @@ function deleteRecipeItem(prodName) {
                 var dataAsArr = JSON.parse(data);
                 console.log(dataAsArr);
                 $.each(dataAsArr,function(index, value) {
-                    var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
-                    pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[0] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                    var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
+                    pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[1] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
                 });
                 pantryTable.draw();
             });
@@ -212,7 +213,7 @@ $("#submitNewProduct").click(function() {
         console.log(data);
         if(data == true)
         {
-            pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#" onclick="loadNutr(\'' + value[0] + '\')">Info</a>', n.capitalize(), '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + n.capitalize() + '\')">Info</a>', n.capitalize(), '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
             pantryTable.draw();
         }
 
@@ -230,7 +231,7 @@ $("#submitNewProduct").click(function() {
             console.log(data);
             if(data == true)
             {
-                pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#" onclick="loadNutr(\'' + value[0] + '\')">Info</a>', n, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>', n.capitalize(), '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
                 pantryTable.draw();
             }
 
@@ -248,7 +249,7 @@ $("#submitNewProduct").click(function() {
                 console.log(data);
                 if(data == true)
                 {
-                    pantryTable.row.add([name, '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+                    pantryTable.row.add(['<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + $("#nameCreate").val().capitalize() + '\')">Info</a>', $("#nameCreate").val().capitalize(), '<a href="#"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
                     pantryTable.draw();
                 }
             });
@@ -319,8 +320,10 @@ $("#submitNewProduct").click(function() {
         var dataAsArr = JSON.parse(data);
         console.log(dataAsArr);
         $.each(dataAsArr,function(index, value) {
+            console.log('value');
+            console.log(value);
             var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
-            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[0] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[1] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
         });
         pantryTable.draw();
     });

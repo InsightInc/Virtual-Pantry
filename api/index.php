@@ -169,6 +169,23 @@ $app->get('/removeProduct', function()
 
 	echo $response;
 });
+
+$app->get('/removeProductByID', function() {
+	global $database;
+	$prodID = $_GET['productID'];
+
+	//Get User
+	if( isset( $_SESSION['uid'] ) )
+   	{
+		 $id =  $_SESSION['uid'];
+   	}
+
+   	//Delete item from User's Pantry
+	$response = $database->query("DELETE FROM PantryList WHERE barcode = '$prodID' AND uid = '$id'");
+
+	echo $response;
+});
+
 $app->get('/getPantryList', function() 
 {
 	global $database;
@@ -180,7 +197,7 @@ $app->get('/getPantryList', function()
    	}
 
    	//Get all items in User's pantry and return it as JSON 
-	$response = $database->query("SELECT pname FROM PantryList WHERE uid = $id");
+	$response = $database->query("SELECT pname, barcode FROM PantryList WHERE uid = $id");
 	$response = $response->fetch_all();
 	$response = json_encode($response);
 	echo $response;
