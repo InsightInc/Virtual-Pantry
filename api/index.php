@@ -346,6 +346,7 @@ $app -> POST('/login', function() use ($database){
 
 	$email = $_POST['email'];
     $password = $_POST['password'];
+    $password =	$database->real_escape_string($password);
 	$query = "SELECT uid FROM User WHERE email = '$email' AND password = '$password' LIMIT 1" or die ("Error querying user database");
 	$run = $database -> query($query);
 	$result = $run->fetch_assoc();
