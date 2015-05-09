@@ -47,7 +47,7 @@ function loadNutr (prodName) {
         var y = "<table style='border-spacing: 20px; border-collapse: separate'><tr><td>Calories</td><td>" + x["cal"] + "</td></tr>";
         y += "<tr><td>Carbs</td><td>" + x["carb"] + "</td></tr>";
         y += "<tr><td>Cholesterol (mg)</td><td>" + x["chol"] + "</td></tr>";
-        y += "<tr><td>Fat (g)</td><td>" + x["fat"] + "</td</tr>";
+        y += "<tr><td>Fat (g)</td><td>" + x["fat"] + "</td></tr>";
         y += "<tr><td>Protien (g)</td><td>" + x["protien"] + "</td></tr>";
         y += "<tr><td>Sodium (mg)</td><td>" + x["sodium"] + "</td></tr></table>";
         $("#nutrinfobody").html(y);
