@@ -812,7 +812,7 @@ $app->get('/addBuyable', function(){
  $app->get('/getShoppingList', function(){
  	global $database;
  	$id =  $_GET['uid'];
- 	$response = $database->query("SELECT name, quantity FROM PantryList WHERE uid = '$id'");
+ 	$response = $database->query("SELECT name, quantity FROM ShoppingList WHERE uid = '$id'");
 	$response = $response->fetch_all();
 	$response = json_encode($response);
 	echo $response;
