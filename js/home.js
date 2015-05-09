@@ -272,7 +272,14 @@ $("#submitNewProduct").click(function() {
                 });
             });
             recipeTable.draw();
+        })
+        .fail(function() {
+            alert( "Could not find recipes");
+            $("#recipeLoadIndic").hide();
         });
+
+        
+
     });
 
 
@@ -387,6 +394,10 @@ $("#submitNewProduct").click(function() {
                 });
             });
             recipeTable.draw();
+        })
+        .fail(function() {
+            $("#frecipeLoadIndic").hide();
+            alert( "Could not find recipes");
         });
 
     });
