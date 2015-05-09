@@ -800,6 +800,32 @@ $app->POST('/createItem', function()
 
 });
 
+$app->get('/addBuyable', function(){
+ 	global $database;
+	$id =  $_GET['uid'];
+	$name= $_GET['name'];
+	$qty=$_GET['qty'];
+	$database->query("INSERT INTO ShoppingList (uid, name, quantity) VALUES ('$id', '$name', '$qty')");
+	echo true;
+
+ });
+ $app->get('/getShoppingList', function(){
+ 	global $database;
+ 	$id =  $_GET['uid'];
+ 	$response = $database->query("SELECT name, quantity FROM PantryList WHERE uid = '$id'");
+	$response = $response->fetch_all();
+	$response = json_encode($response);
+	echo $response;
+ });
+ $app->get('/removeList', function(){
+ 	global $database;
+ 	$id =  $_GET['uid'];
+ 	$name = $_GET['name'];
+ 	$database->query("DELETE FROM ShoppingList WHERE name = '$name' AND uid = '$id'");
+ 	echo true;
+
+ });
+
 
 $app->run();
 ?>
