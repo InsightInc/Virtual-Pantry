@@ -645,10 +645,10 @@ $app->get('/addProductSearch', function() {
 
     //Put product info into json array for the response
     $jsonProduct = array();
-    $jsonProduct['fat'] = $product->product->nutrients[6]->nutrient_value;
+    $jsonProduct['fat'] = $product->product->nutrients[3]->nutrient_value;
 	$jsonProduct['chol'] = $product->product->nutrients[1]->nutrient_value;
-	$jsonProduct['sodium'] = $product->product->nutrients[3]->nutrient_value;
-	$jsonProduct['carb'] = $product->product->nutrients[5]->nutrient_value;
+	$jsonProduct['sodium'] = $product->product->nutrients[4]->nutrient_value;
+	$jsonProduct['carb'] = $product->product->nutrients[6]->nutrient_value;
 	$jsonProduct['protien'] = $product->product->nutrients[2]->nutrient_value;
 	$jsonProduct['barcode'] = $upc;
 	$jsonProduct['cal'] = $product->product->nutrients[0]->nutrient_value;

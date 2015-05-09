@@ -47,7 +47,7 @@ function loadNutr (prodName) {
         var y = "<table style='border-spacing: 20px; border-collapse: separate'><tr><td>Calories</td><td>" + x["cal"] + "</td></tr>";
         y += "<tr><td>Carbs</td><td>" + x["carb"] + "</td></tr>";
         y += "<tr><td>Cholesterol (mg)</td><td>" + x["chol"] + "</td></tr>";
-        y += "<tr><td>Fat (g)</td><td>" + x["fat"] + "</td</tr>";
+        y += "<tr><td>Fat (g)</td><td>" + x["fat"] + "</td></tr>";
         y += "<tr><td>Protien (g)</td><td>" + x["protien"] + "</td></tr>";
         y += "<tr><td>Sodium (mg)</td><td>" + x["sodium"] + "</td></tr></table>";
         $("#nutrinfobody").html(y);
@@ -330,7 +330,7 @@ $("#submitNewProduct").click(function() {
             console.log('value');
             console.log(value);
             var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
-            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[1].capitalize() + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.row.add([modalBtn, value[0].capitalize(),'<a href="#" onclick="deleteRecipeItem(\'' + value[1] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
         });
         pantryTable.draw();
     });
