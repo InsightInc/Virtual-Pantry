@@ -323,7 +323,7 @@ $("#submitNewProduct").click(function() {
             console.log('value');
             console.log(value);
             var modalBtn = '<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#nutrinfo" onclick="loadNutr(\'' + value[0] + '\')">Info</a>';
-            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[1] + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
+            pantryTable.row.add([modalBtn, value[0],'<a href="#" onclick="deleteRecipeItem(\'' + value[1].capitalize() + '\')"><span class="glyphicon glyphicon-trash deleteRecipeItem"></span></a>']);
         });
         pantryTable.draw();
     });
