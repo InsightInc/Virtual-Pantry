@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS User (uid int NOT NULL AUTO_INCREMENT, fname varchar(
 
 CREATE TABLE IF NOT EXISTS PantryList (uid int NOT NULL, pname varchar(100), barcode varchar(15), price decimal(5,2),  
 						              PRIMARY KEY(uid, pname), FOREIGN KEY(uid) REFERENCES User(uid) ON DELETE CASCADE);
+						              
+DROP TABLE IF EXISTS ShoppingList;
+CREATE TABLE IF NOT EXISTS ShoppingList (uid int, name varchar(100), quantity int, FOREIGN KEY(uid));
 
 DROP TABLE IF EXISTS Ingredient;
 CREATE TABLE IF NOT EXISTS Ingredient (barcode varchar(15), fat int, chol int, sodium int, carb int, protien int,
